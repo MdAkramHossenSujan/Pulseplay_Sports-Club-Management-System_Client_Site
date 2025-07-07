@@ -25,7 +25,7 @@ const Navbar = () => {
             <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
                 <div className="flex items-center gap-2">
                     <img src={logo} alt="logo" className="w-12 h-12 border dark:border-green-600 rounded-full p-1" />
-                    <span className="text-3xl font-bold text-green-600">SportSphere</span>
+                    <span className="text-3xl font-bold text-green-600">PulsePlay</span>
                 </div>
                 {/* Desktop Navigation */}
                 <nav className="hidden md:flex gap-8 items-center">

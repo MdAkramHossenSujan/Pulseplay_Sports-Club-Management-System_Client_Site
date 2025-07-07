@@ -16,7 +16,7 @@ const Footer = () => {
       {/* Top Section */}
       <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10">
         <div className="text-center md:text-left">
-          <span className="text-2xl font-bold text-gray-500 dark:text-green-500">SportSphere</span>
+          <span className="text-2xl font-bold text-gray-500 dark:text-green-500">PulsePlay</span>
           <p className="mt-3 text-sm">
             Elevate your game. Join the premier sports club for fitness, training,
             and community.
