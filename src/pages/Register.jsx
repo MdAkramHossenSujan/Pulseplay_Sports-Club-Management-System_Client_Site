@@ -7,14 +7,16 @@ import light from "../assets/scattered-forcefields.png";
 import turf from "../assets/turf.jpg";
 import { Link } from "react-router";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const Register = () => {
-    const { theme } = useAuth();
+    const { theme, createUser, updateUser } = useAuth();
     const backgroundImage = theme === "dark" ? dark : light;
-//React Hook form to extract data from the form
+    //React Hook form to extract data from the form
     const {
         register,
         handleSubmit,
+        reset,
         formState: { errors },
     } = useForm();
 
@@ -23,14 +25,29 @@ const Register = () => {
 
     const onSubmit = (data) => {
         // Register logic here
-        const finalData={
-            ...data,
-            image:selectedImage
-        }
-        console.log(finalData)
-    };
-//Collecting Image as a form of url by live hosting
-    const handleImageChange = async(e) => {
+        createUser(data.email, data.password)
+            .then(async (result) => {
+                console.log(result.user)
+                const userProfile = {
+                    displayName: data.name,
+                    photoURL: selectedImage
+                }
+                //Update logic to set Image.
+                updateUser(userProfile)
+                    .then(() => {
+                        toast.success("User Registered Successfully")
+                        reset()
+                    })
+                    .catch((error) => {
+                        console.log(error)
+                    })
+            })
+            .catch((error) => {
+                console.log(error)
+            })
+    }
+    //Collecting Image as a form of url by live hosting
+    const handleImageChange = async (e) => {
         const file = e.target.files[0];
         const formData = new FormData()
         formData.append('image', file)
@@ -61,7 +78,7 @@ const Register = () => {
                 <div className="w-full lg:w-1/2 p-8 space-y-6 flex flex-col justify-center">
                     <div className="text-center space-y-2">
                         <p className="text-lg text-gray-600 dark:text-gray-300">
-                           Hey!!! Welcome to <span className="text-green-600 dark:text-green-400 font-semibold">PulsePlay</span>!
+                            Hey!!! Welcome to <span className="text-green-600 dark:text-green-400 font-semibold">PulsePlay</span>!
                         </p>
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100">
                             Create an Account
@@ -127,19 +144,29 @@ const Register = () => {
                                     type={showPassword ? "text" : "password"}
                                     placeholder="••••••••"
                                     className="input input-bordered w-full pr-10"
-                                    {...register("password", { required: "Password is required" })}
+                                    {...register("password", {
+                                        required: "Password is required",
+                                        pattern: {
+                                            value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/,
+                                            message:
+                                                "Password must contain uppercase, lowercase, and a number",
+                                        },
+                                    })}
                                 />
                                 <span
-                                    className="absolute right-3 top-3 text-gray-400 dark:text-gray-500 cursor-pointer"
+                                    className="absolute z-10 right-3 top-3 text-gray-400 dark:text-gray-500 cursor-pointer"
                                     onClick={() => setShowPassword(!showPassword)}
                                 >
                                     {showPassword ? <HiEyeOff size={20} /> : <HiEye size={20} />}
                                 </span>
                             </div>
                             {errors.password && (
-                                <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                                <p className="text-red-500 text-sm mt-1">
+                                    {errors.password.message}
+                                </p>
                             )}
                         </div>
+
 
                         {/* Image Upload */}
                         <div className="form-control">

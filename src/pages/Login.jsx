@@ -11,11 +11,12 @@ import light from "../assets/scattered-forcefields.png";
 import turf from "../assets/turf.jpg";
 import { Link } from "react-router";
 import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const { theme } = useAuth();
+  const { theme,signInUser } = useAuth();
   const backgroundImage = theme === "dark" ? dark : light;
-
+const [credentialError,setCredentialError]=useState()
   const {
     register,
     handleSubmit,
@@ -24,8 +25,13 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = (data) => {
-    console.log(data);
-    // Handle login logic
+    signInUser(data.email,data.password)
+    .then(()=>{
+      toast.success("Login Successful")
+    })
+    .catch((error)=>{
+      setCredentialError('Password and Email is not matching')
+    })
   };
 
   return (
@@ -127,6 +133,11 @@ const Login = () => {
                 </p>
               )}
             </div>
+            {
+                credentialError && <p className="text-red-500 text-sm mt-1">
+                    {credentialError}
+                </p>
+            }
             <p className="text-gray-700 dark:text-gray-300 text-sm">
             Don&apos;t have an account?{" "}
             <Link
