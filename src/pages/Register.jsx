@@ -61,7 +61,7 @@ const Register = () => {
                 <div className="w-full lg:w-1/2 p-8 space-y-6 flex flex-col justify-center">
                     <div className="text-center space-y-2">
                         <p className="text-lg text-gray-600 dark:text-gray-300">
-                           Hey!!! Welcome to <span className="text-green-600 dark:text-green-400 font-semibold">SportSphere</span>!
+                           Hey!!! Welcome to <span className="text-green-600 dark:text-green-400 font-semibold">PulsePlay</span>!
                         </p>
                         <h1 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100">
                             Create an Account

@@ -17,6 +17,7 @@
     "axios": "^1.10.0",
     "daisyui": "^5.0.46",
     "embla-carousel-react": "^8.6.0",
+    "firebase": "^11.10.0",
     "framer-motion": "^12.23.0",
     "leaflet": "^1.9.4",
     "lottie-react": "^2.4.1",
