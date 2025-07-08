@@ -6,6 +6,8 @@ import RootLayout from "../layouts/RootLayout";
 import Home from "../pages/Home";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
+import AddCourt from "../pages/AddCourt";
+import PrivateRoute from "./PrivateRoute";
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -23,6 +25,12 @@ import Register from "../pages/Register";
         {
           path:'/register',
           Component:Register
+        },
+        {
+          path:'/addcourt',
+          element:<PrivateRoute>
+            <AddCourt/>
+          </PrivateRoute>
         }
       ]
     }

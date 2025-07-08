@@ -5,13 +5,20 @@ import useAuth from "../hooks/useAuth";
 import dark from "../assets/scattered-forcefields-dark.png";
 import light from "../assets/scattered-forcefields.png";
 import turf from "../assets/turf.jpg";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import axios from "axios";
 import toast from "react-hot-toast";
+import useAxios from "../hooks/useAxios";
+import SocialLogIn from "../shared/SocialLogIn";
 
 const Register = () => {
     const { theme, createUser, updateUser } = useAuth();
+    const axiosInstance = useAxios()
     const backgroundImage = theme === "dark" ? dark : light;
+    //Navigation Logic
+    const location=useLocation()
+    const navigate=useNavigate()
+    const from=location.state?.from || '/'
     //React Hook form to extract data from the form
     const {
         register,
@@ -32,11 +39,21 @@ const Register = () => {
                     displayName: data.name,
                     photoURL: selectedImage
                 }
+                const userData = {
+                    email: data.email,
+                    name: data.name,
+                    image: selectedImage,
+                    created_at: new Date().toISOString(),
+                    role: 'user'
+                }
+                const userResponse = await axiosInstance.post('/users', userData)
+                console.log(userResponse.data)
                 //Update logic to set Image.
                 updateUser(userProfile)
                     .then(() => {
                         toast.success("User Registered Successfully")
                         reset()
+                        navigate(from)
                     })
                     .catch((error) => {
                         console.log(error)
@@ -53,6 +70,7 @@ const Register = () => {
         formData.append('image', file)
         const res = await axios.post(`https://api.imgbb.com/1/upload?&key=${import.meta.env.VITE_imageUpload_key}`, formData)
         setSelectedImage(res.data.data.url)
+        console.log(selectedImage)
     };
 
     return (
@@ -75,8 +93,8 @@ const Register = () => {
                 </div>
 
                 {/* RIGHT FORM */}
-                <div className="w-full lg:w-1/2 p-8 space-y-6 flex flex-col justify-center">
-                    <div className="text-center space-y-2">
+                <div className="w-full lg:w-1/2 p-8 flex flex-col justify-center">
+                    <div className="text-center space-y-2 mb-8">
                         <p className="text-lg text-gray-600 dark:text-gray-300">
                             Hey!!! Welcome to <span className="text-green-600 dark:text-green-400 font-semibold">PulsePlay</span>!
                         </p>
@@ -89,7 +107,7 @@ const Register = () => {
                     </div>
 
 
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-2">
                         {/* Name */}
                         <div className="form-control">
                             <label className="label">
@@ -195,6 +213,8 @@ const Register = () => {
                             Register
                         </button>
                     </form>
+                    <div class="divider">OR</div>
+                    <SocialLogIn />
                 </div>
             </div>
         </div>
