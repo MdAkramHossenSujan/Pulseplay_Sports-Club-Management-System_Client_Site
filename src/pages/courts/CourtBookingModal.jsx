@@ -4,10 +4,11 @@ import Swal from "sweetalert2";
 import { X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
+import useAuth from "../../hooks/useAuth";
 
 const CourtBookingModal = ({ court, isOpen, onClose }) => {
     const axiosInstance = useAxios();
-
+const {user}=useAuth()
     // Fetch all available coupons
     const { data: coupons = [] } = useQuery({
         queryKey: ['coupons'],
@@ -41,6 +42,7 @@ const CourtBookingModal = ({ court, isOpen, onClose }) => {
 
     const onSubmit = (data) => {
         const bookingData = {
+            bookedBy:user.email,
             courtName: court.courtName,
             courtImage: court.courtImage,
             courtType: court.courtType,
