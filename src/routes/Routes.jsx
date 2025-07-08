@@ -8,6 +8,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import AddCourt from "../pages/AddCourt";
 import PrivateRoute from "./PrivateRoute";
+import Courts from "../pages/courts/Courts";
+
   export const router = createBrowserRouter([
     {
       path: "/",
@@ -25,6 +27,10 @@ import PrivateRoute from "./PrivateRoute";
         {
           path:'/register',
           Component:Register
+        },
+        {
+path:'/courts',
+Component:Courts
         },
         {
           path:'/addcourt',
