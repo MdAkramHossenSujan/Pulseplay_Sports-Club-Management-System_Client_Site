@@ -196,6 +196,7 @@ const Register = () => {
                             <input
                                 type="file"
                                 accept="image/*"
+                                required
                                 className="file-input file-input-bordered w-full"
                                 onChange={handleImageChange}
                             />

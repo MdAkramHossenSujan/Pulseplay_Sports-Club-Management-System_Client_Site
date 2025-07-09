@@ -5,6 +5,7 @@ import axios from "axios";
 import field from "../assets/field.jpg";
 import toast from "react-hot-toast";
 import useAxios from "../hooks/useAxios";
+import { useNavigate } from "react-router";
 
 const AddCourt = () => {
     const {
@@ -13,7 +14,7 @@ const AddCourt = () => {
         reset,
         formState: { errors },
     } = useForm();
-
+const navigate=useNavigate()
     const [imageURL, setImageURL] = useState("");
     const [uploading, setUploading] = useState(false);
 const axiosInstance=useAxios()
@@ -68,6 +69,7 @@ console.log(imageURL)
                 await axiosInstance.post('/courts',courtData)
                 reset();
                 setImageURL("");
+                navigate('/courts')
                 Swal.fire({
                     icon: "success",
                     title: "Court added successfully",

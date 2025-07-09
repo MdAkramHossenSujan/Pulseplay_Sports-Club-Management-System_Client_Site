@@ -63,7 +63,7 @@ console.log(pageCount)
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen w-full">
-        <Lottie className="w-16 h-16" animationData={loadingAnimation} loop={true} />
+        <Lottie className="md:w-48 md:h-48 w-32 h-32" animationData={loadingAnimation} loop={true} />
       </div>
     );
   }

@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import logo from '../assets/Logo/logo-transparent.png';
 import useAuth from "../hooks/useAuth";
 import toast from "react-hot-toast";
+import Theme from "./Theme";
 
 const navLinks = [
     { name: "Home", path: "/" },
@@ -17,15 +18,15 @@ const navLinks = [
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [profileDropdown, setProfileDropdown] = useState(false);
-    const { theme, toggleTheme, user, logOut } = useAuth();
-const handleLogOut=()=>{
-    logOut()
-    .then(() => {
-      toast.success('Signed Out Successful')
-    }).catch(error => {
-      console.log(error)
-    })
-}
+    const { user, logOut } = useAuth();
+    const handleLogOut = () => {
+        logOut()
+            .then(() => {
+                toast.success('Signed Out Successful')
+            }).catch(error => {
+                console.log(error)
+            })
+    }
     return (
         <header className="fixed top-0 left-0 w-full dark:bg-base-200 bg-base-100 border-b border-gray-400 dark:border-green-900 shadow z-50">
             <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-3">
@@ -168,15 +169,8 @@ const handleLogOut=()=>{
                             </NavLink>
                         </>
                     )}
-                      {/* Theme toggle */}
-                      <label
-                        onClick={toggleTheme}
-                        className={`cursor-pointer bg-blue-600 dark:bg-blue-900 md:p-2 p-1 rounded-full swap swap-rotate ${theme === "dark" ? "swap-active" : ""
-                            }`}
-                    >
-                        <Moon size={20} className="swap-on text-gray-400" />
-                        <Sun size={20} className="swap-off text-yellow-500" />
-                    </label>
+                    {/* Theme toggle */}
+                   <Theme/>
                 </nav>
 
                 {/* Hamburger */}
@@ -218,14 +212,7 @@ const handleLogOut=()=>{
                                 </button>
                             </div>
                             {/* Theme toggle */}
-                            <label
-                                onClick={toggleTheme}
-                                className={`cursor-pointer w-10 h-10 bg-blue-600 dark:bg-blue-900 md:p-2 p-1 rounded-full swap swap-rotate ${theme === "dark" ? "swap-active" : ""
-                                    }`}
-                            >
-                                <Moon size={20} className="swap-on text-gray-400" />
-                                <Sun size={20} className="swap-off text-yellow-500" />
-                            </label>
+                           <Theme/>
                             {/* User info in mobile */}
                             {user && (
                                 <div className="flex flex-col items-center gap-2">
@@ -274,25 +261,25 @@ const handleLogOut=()=>{
                                     {link.name}
                                 </NavLink>
                             ))}
-
                             {!user && (
                                 <>
                                     <NavLink
                                         to="/login"
                                         onClick={() => setOpen(false)}
-                                        className="text-gray-700 hover:text-primary font-medium mt-4"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-primary font-medium"
                                     >
                                         Login
                                     </NavLink>
                                     <NavLink
                                         to="/register"
                                         onClick={() => setOpen(false)}
-                                        className="text-gray-700 hover:text-primary font-medium"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-primary font-medium"
                                     >
                                         Register
                                     </NavLink>
                                 </>
                             )}
+
                         </motion.aside>
                     </>
                 )}

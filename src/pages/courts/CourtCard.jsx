@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import CourtBookingModal from "./CourtBookingModal";
 import { BadgePercent, Clock, BadgeCheck } from "lucide-react";
 import { motion } from "framer-motion";
+import useAuth from "../../hooks/useAuth";
 
 const CourtCard = ({ court }) => {
   const [modalOpen, setModalOpen] = useState(false);
-
+  const {user}=useAuth()
+  const navigate=useNavigate()
   return (
     <>
       <motion.div
@@ -80,11 +82,15 @@ const CourtCard = ({ court }) => {
       </motion.div>
 
       {/* Modal */}
+     {
+      user ?
       <CourtBookingModal
         court={court}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
       />
+      : navigate('/login')
+     }
     </>
   );
 };

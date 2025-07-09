@@ -2,7 +2,7 @@ import React from 'react';
 import useAuth from '../hooks/useAuth';
 import loadingAnimation from '../assets/Animation/Animation - 1751968204375_Loading.json'
 import Lottie from 'lottie-react';
-import { useLocation } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 const PrivateRoute = ({children}) => {
     const {user,loading}=useAuth()
     const location=useLocation()
