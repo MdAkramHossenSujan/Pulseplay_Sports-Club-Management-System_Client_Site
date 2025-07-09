@@ -11,17 +11,19 @@ const MakeAdmin = () => {
     const secureAxios = useSecureAxios();
     const queryClient = useQueryClient();
 
+    // State for search
+    const [searchTerm, setSearchTerm] = useState("");
     // Load users
     const { data: users = [], isLoading } = useQuery({
-        queryKey: ["users"],
+        queryKey: ["users", searchTerm],
         queryFn: async () => {
-            const res = await secureAxios.get("/users");
+            const res = await secureAxios.get("/users", {
+                params: searchTerm ? { search: searchTerm } : {},
+            });
             return res.data;
         },
     });
 
-    // State for search
-    const [searchTerm, setSearchTerm] = useState("");
 
     // Pagination
     const itemsPerPage = 10;
@@ -75,18 +77,6 @@ const MakeAdmin = () => {
         },
     });
 
-    if (isLoading) {
-        return (
-            <div className="flex justify-center items-center min-h-screen w-full">
-                <Lottie
-                    className="md:w-48 md:h-48 w-32 h-32"
-                    animationData={loadingAnimation}
-                    loop={true}
-                />
-            </div>
-        );
-    }
-
     return (
         <div className="p-6 space-y-6">
             <h2 className="text-4xl font-extrabold mb-4">Manage Users</h2>
@@ -96,7 +86,7 @@ const MakeAdmin = () => {
                 <FaSearch className="text-green-600 mr-2" />
                 <input
                     type="text"
-                    placeholder="Search by name or email..."
+                    placeholder="Search by email..."
                     className="flex-1 outline-none bg-transparent text-gray-700 dark:text-gray-200"
                     value={searchTerm}
                     onChange={(e) => {
@@ -105,7 +95,15 @@ const MakeAdmin = () => {
                     }}
                 />
             </div>
-
+            {
+                isLoading && <div className="flex justify-center items-center min-h-[70vh] w-full">
+                    <Lottie
+                        className="md:w-48 md:h-48 w-32 h-32"
+                        animationData={loadingAnimation}
+                        loop={true}
+                    />
+                </div>
+            }
             {/* User Data With Search */}
             {/* No search results */}
             {filteredUsers.length === 0 && searchTerm && (
