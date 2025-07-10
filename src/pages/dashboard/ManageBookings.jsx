@@ -119,7 +119,7 @@ const ManageBookings = () => {
 
                                 {/* Total Price */}
                                 <td className="font-semibold text-green-600">
-                                    ৳ {booking.totalPrice}
+                                ${booking.totalPrice}
                                 </td>
 
                                 {/* Merged Details Cell */}

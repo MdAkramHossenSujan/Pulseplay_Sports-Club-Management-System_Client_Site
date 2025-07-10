@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell } from 'react-icons/fa';
+import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell, FaMoneyBillWave } from 'react-icons/fa';
 import logo from '../assets/Logo/logo-transparent.png'
 import useUserData from '../hooks/useUserData';
 import { CheckCircle, Menu } from 'lucide-react';
@@ -12,7 +12,7 @@ const DashboardLayout = () => {
     const { userData, isLoading } = useUserData()
     const secureAxios = useSecureAxios()
     const queryClient = useQueryClient();
-    const { data, error,refetch } = useQuery({
+    const { data, error, refetch } = useQuery({
         queryKey: ['unread-announcement-count', userData?.email],
         queryFn: async () => {
             const res = await secureAxios.get('/notifications', {
@@ -26,13 +26,13 @@ const DashboardLayout = () => {
     console.log(data)
     const markNotificationsReadMutation = useMutation({
         mutationFn: async (email) => {
-          return secureAxios.patch('/notifications/markRead', { email });
+            return secureAxios.patch('/notifications/markRead', { email });
         },
         onSuccess: () => {
-          queryClient.invalidateQueries(['unread-announcement-count', userData?.email]);
-          refetch()
+            queryClient.invalidateQueries(['unread-announcement-count', userData?.email]);
+            refetch()
         },
-      });
+    });
     if (isLoading) {
         return (
             <Loading />
@@ -197,28 +197,40 @@ const DashboardLayout = () => {
                                         <FaBullhorn /> Announcements
                                     </NavLink>
                                 </li>
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/paymentHistory"
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                ? ' text-green-700 font-semibold'
+                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                            }`
+                                        }
+                                    >
+                                        <FaMoneyBillWave /> Payment History
+                                    </NavLink>
+                                </li>
                                 <li
-  className="relative"
-  onClick={() => {
-    markNotificationsReadMutation.mutate(userData.email);
-  }}
->
-  <NavLink
-    to="/dashboard/notifications"
-    className={({ isActive }) =>
-      `flex items-center gap-2 px-3 py-2 rounded ${
-        isActive
-          ? 'text-green-700 font-semibold'
-          : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-      }`
-    }
-  >
-    <FaBell /> Notifications{' '}
-    <small className="absolute -top-0 left-6 text-xs">
-      {notificationCount}
-    </small>
-  </NavLink>
-</li>
+                                    className="relative"
+                                    onClick={() => {
+                                        markNotificationsReadMutation.mutate(userData.email);
+                                    }}
+                                >
+                                    <NavLink
+                                        to="/dashboard/notifications"
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                ? 'text-green-700 font-semibold'
+                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                            }`
+                                        }
+                                    >
+                                        <FaBell /> Notifications{' '}
+                                        <small className="absolute -top-0 left-6 text-xs">
+                                            {notificationCount}
+                                        </small>
+                                    </NavLink>
+                                </li>
 
 
                                 <li>

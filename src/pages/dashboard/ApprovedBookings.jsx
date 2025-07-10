@@ -120,7 +120,7 @@ const ApprovedBookings = () => {
                                     {dayjs(booking.date).format('MMM DD, YYYY')}
                                 </td>
                                 <td className="font-semibold text-green-600">
-                                    ৳ {booking.totalPrice}
+                                ${booking.totalPrice}
                                 </td>
                                 <td>
                                     <span className="badge badge-success">

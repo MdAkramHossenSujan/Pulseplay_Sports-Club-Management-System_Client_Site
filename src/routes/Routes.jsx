@@ -17,6 +17,7 @@ import ManageBookings from "../pages/dashboard/ManageBookings";
 import Notifications from "../pages/dashboard/Notifications";
 import ApprovedBookings from "../pages/dashboard/ApprovedBookings";
 import Payment from "../pages/dashboard/payments/Payment";
+import PaymentHistory from "../pages/dashboard/payments/PaymentHistory";
 
 export const router = createBrowserRouter([
   {
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         path:'approvedBookings',
         Component:ApprovedBookings
+      },
+      {
+        path:'paymentHistory',
+        Component:PaymentHistory
       }
     ]
   }

@@ -2,7 +2,6 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { X } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import Loading from "../../shared/Loading";
@@ -10,14 +9,6 @@ import Loading from "../../shared/Loading";
 const CourtBookingModal = ({ court, isOpen, onClose }) => {
     const axiosInstance = useAxios();
 const {user}=useAuth()
-    // Fetch all available coupons
-    const { data: coupons = [],isLoading } = useQuery({
-        queryKey: ['coupons'],
-        queryFn: async () => {
-            const res = await axiosInstance.get('/coupons');
-            return res.data;
-        },
-    });
     //React hook form
     const {
         register,
@@ -31,17 +22,8 @@ const {user}=useAuth()
     const couponCode = watch("coupon") || "";
     const pricePerSession = parseFloat(court.pricePerSession);
     const subtotal = pricePerSession * selectedSlots.length;
-if(isLoading){
-    return <Loading/>
-}
-    // Check if the entered coupon matches any available coupon
-    const matchedCoupon = coupons.find(
-        (c) => c.couponName.toLowerCase() === couponCode.toLowerCase()
-    );
 
-    const discountPercent = matchedCoupon?.couponValue || 0;
-    const discountAmount = (subtotal * discountPercent) / 100;
-    const totalPrice = subtotal - discountAmount;
+    const totalPrice = subtotal;
 
     const onSubmit = (data) => {
         const bookingData = {
@@ -67,10 +49,7 @@ if(isLoading){
         <p><strong>Total Price:</strong> $${totalPrice.toFixed(2)}</p>
         <p><strong>Date:</strong> ${data.date}</p>
         <p><strong>Slots:</strong> ${selectedSlots.join(", ")}</p>
-        ${matchedCoupon
-                    ? `<p><strong>Coupon Applied:</strong> ${matchedCoupon.couponName} (${discountPercent}% off)</p>`
-                    : ""
-                }
+        
       `,
             showCancelButton: true,
             confirmButtonText: "Confirm Booking",
@@ -194,32 +173,6 @@ if(isLoading){
                             )}
                         </div>
 
-                        {/* Coupon Field */}
-                        <div>
-                            <label className="label">
-                                <span className="label-text">Coupon Code (optional)</span>
-                            </label>
-                            <input
-                                type="text"
-                                {...register("coupon")}
-                                className="input input-bordered w-full"
-                                placeholder="Enter coupon code"
-                            />
-                            {matchedCoupon && (
-                                <p className="text-green-600 text-sm mt-1">
-                                    ✅ Coupon applied: {matchedCoupon.couponName} (
-                                    {matchedCoupon.couponValue}% off)
-                                </p>
-                            )}
-                            {couponCode &&
-                                !matchedCoupon &&
-                                couponCode.length > 0 && (
-                                    <p className="text-red-500 text-sm mt-1">
-                                        Invalid coupon code.
-                                    </p>
-                                )}
-                        </div>
-
                         {/* Pricing Summary */}
                         <div className="text-right mt-4 space-y-1">
                             <p className="text-gray-700 dark:text-gray-300">
@@ -229,12 +182,7 @@ if(isLoading){
                                 </span>
                             </p>
 
-                            {matchedCoupon && (
-                                <p className="text-green-600">
-                                    Discount ({matchedCoupon.couponName}): -$
-                                    {discountAmount.toFixed(2)}
-                                </p>
-                            )}
+                                
 
                             <p className="text-lg font-semibold text-green-700">
                                 Total Price: ${totalPrice.toFixed(2)}
