@@ -12,6 +12,7 @@ import Courts from "../pages/courts/Courts";
 import DashboardLayout from "../layouts/DashboardLayout";
 import MakeAdmin from "../pages/dashboard/MakeAdmin";
 import DashboardHome from "../pages/dashboard/DashboardHome";
+import PendingBookings from "../pages/dashboard/PendingBookings";
 
 export const router = createBrowserRouter([
   {
@@ -57,6 +58,10 @@ export const router = createBrowserRouter([
       {
         path:'makeadmin',
         Component:MakeAdmin
+      },
+      {
+        path:'pendingBookings',
+        Component:PendingBookings
       }
     ]
   }

@@ -5,12 +5,13 @@ import { X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
+import Loading from "../../shared/Loading";
 
 const CourtBookingModal = ({ court, isOpen, onClose }) => {
     const axiosInstance = useAxios();
 const {user}=useAuth()
     // Fetch all available coupons
-    const { data: coupons = [] } = useQuery({
+    const { data: coupons = [],isLoading } = useQuery({
         queryKey: ['coupons'],
         queryFn: async () => {
             const res = await axiosInstance.get('/coupons');
@@ -30,7 +31,9 @@ const {user}=useAuth()
     const couponCode = watch("coupon") || "";
     const pricePerSession = parseFloat(court.pricePerSession);
     const subtotal = pricePerSession * selectedSlots.length;
-
+if(isLoading){
+    return <Loading/>
+}
     // Check if the entered coupon matches any available coupon
     const matchedCoupon = coupons.find(
         (c) => c.couponName.toLowerCase() === couponCode.toLowerCase()
@@ -84,9 +87,10 @@ const {user}=useAuth()
                 if (res.data.inserted) {
                     Swal.fire({
                         icon: "success",
-                        title: "Booking Confirmed!",
-                        text: `Your booking for ${court.courtName} has been successfully placed.`,
-                    });
+                        title: "Booking Request Submitted",
+                        text: `Thank you for your request. Your booking for ${court.courtName} has been forwarded to the admin for review. Please wait patiently for confirmation.`,
+                      });
+                      
                 }
                 reset();
                 onClose();
@@ -104,12 +108,12 @@ const {user}=useAuth()
 
     return (
         <>
-            <div className={`modal ${isOpen ? "modal-open" : ""}`}>
-                <div className="modal-box max-w-2xl relative">
+            <div className={`modal pt-6 md:pt-0 ${isOpen ? "modal-open" : ""}`}>
+                <div className="modal-box max-w-4xl relative">
                     {/* Close Button */}
                     <button
                         onClick={onClose}
-                        className="absolute right-4 top-4 text-gray-400 hover:text-red-600"
+                        className="absolute cursor-pointer right-4 top-4 text-gray-400 hover:text-red-600"
                     >
                         <X className="w-5 h-5" />
                     </button>
