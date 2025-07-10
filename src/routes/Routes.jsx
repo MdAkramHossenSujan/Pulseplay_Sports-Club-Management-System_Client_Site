@@ -36,12 +36,6 @@ export const router = createBrowserRouter([
       {
         path: '/courts',
         Component: Courts
-      },
-      {
-        path: '/addcourt',
-        element: <PrivateRoute>
-          <AddCourt />
-        </PrivateRoute>
       }
     ]
   },
@@ -67,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path:'manageBooking',
         Component:ManageBookings
+      },
+      {
+        path:'addcourt',
+        Component:AddCourt
       }
     ]
   }

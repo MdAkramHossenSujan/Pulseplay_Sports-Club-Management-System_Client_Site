@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit } from 'react-icons/fa';
+import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus } from 'react-icons/fa';
 import logo from '../assets/Logo/logo-transparent.png'
 import useUserData from '../hooks/useUserData';
 import { Menu } from 'lucide-react';
@@ -53,7 +53,7 @@ const DashboardLayout = () => {
                     </div>
 
 
-                    <div className="px-4 md:px-8 py-8">
+                    <div>
                         <Suspense fallback={
                             <Loading/>
                         }>
@@ -128,6 +128,19 @@ const DashboardLayout = () => {
                                         }
                                     >
                                         <FaEdit />Manage bookings
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/addcourt"
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                ? ' text-green-700 font-semibold'
+                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                            }`
+                                        }
+                                    >
+                                        <FaPlus />Add Court
                                     </NavLink>
                                 </li>
                                 <li>

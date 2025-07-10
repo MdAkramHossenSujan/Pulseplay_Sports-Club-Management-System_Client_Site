@@ -14,10 +14,10 @@ const AddCourt = () => {
         reset,
         formState: { errors },
     } = useForm();
-const navigate=useNavigate()
+    const navigate = useNavigate()
     const [imageURL, setImageURL] = useState("");
     const [uploading, setUploading] = useState(false);
-const axiosInstance=useAxios()
+    const axiosInstance = useAxios()
     const slotTimes = [
         "08:00 - 09:00",
         "09:00 - 10:00",
@@ -37,7 +37,7 @@ const axiosInstance=useAxios()
         "00:00 - 01:00",
         "01:00 - 02:00",
     ];
-console.log(imageURL)
+    console.log(imageURL)
     const onSubmit = async (data) => {
         const courtData = {
             courtName: data.name,
@@ -62,11 +62,11 @@ console.log(imageURL)
             confirmButtonColor: "#16a34a",
             cancelButtonColor: "#d33",
             confirmButtonText: "Post Now!",
-        }).then(async(result) => {
+        }).then(async (result) => {
             if (result.isConfirmed) {
                 // Here is my API call
                 console.log("Court saved:", courtData);
-                await axiosInstance.post('/courts',courtData)
+                await axiosInstance.post('/courts', courtData)
                 reset();
                 setImageURL("");
                 navigate('/courts')
@@ -111,10 +111,17 @@ console.log(imageURL)
             <div className="absolute inset-0 bg-gradient-to-br backdrop-blur-xs from-black/90 via-green-900/40 to-black/70"></div>
 
             {/* Form container */}
-            <div className="relative z-10 w-full max-w-5xl bg-base-200 backdrop-blur-xl rounded-lg px-8 py-16 shadow-lg">
-                <h2 className="text-4xl lg:text-5xl font-bold text-center text-green-600 mb-6">
+            <div className="relative z-10 w-full max-w-5xl bg-base-200 backdrop-blur-xl rounded-lg px-8 py-8 shadow-lg">
+                <h2 className="text-4xl lg:text-5xl font-bold text-center text-green-600 mb-4">
                     Add New Court
                 </h2>
+                <div className="text-center max-w-xl italic mx-auto mb-6">
+                    <p>
+                        Ready to expand your facilities? Use the form below to add a new court to PulsePlay.
+                        Provide details like court type, images, and available time slots to keep players in the game!
+                    </p>
+                </div>
+
 
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                     {/* Name */}
