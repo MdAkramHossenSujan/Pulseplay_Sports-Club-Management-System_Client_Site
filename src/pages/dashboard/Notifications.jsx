@@ -5,6 +5,7 @@ import useAuth from '../../hooks/useAuth';
 import Loading from '../../shared/Loading';
 import dayjs from 'dayjs';
 import { FaBellSlash } from 'react-icons/fa';
+import NoData from '../../shared/NoData';
 
 const Notifications = () => {
   const secureAxios = useSecureAxios();
@@ -41,8 +42,8 @@ const Notifications = () => {
 
       {notifications.length === 0 ? (
         <div className="text-center text-gray-500">
-          <FaBellSlash className="mx-auto text-5xl mb-4" />
-          <p>No new notifications at the moment.</p>
+          <NoData/>
+          <p>You have no notifications to display.</p>
         </div>
       ) : (
         <div className="grid  gap-6">

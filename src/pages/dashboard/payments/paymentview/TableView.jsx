@@ -1,3 +1,5 @@
+import NoData from "../../../../shared/NoData";
+
 const TableView = ({ payments }) => {
     return (
       <div className="overflow-x-auto rounded-lg">
@@ -29,7 +31,10 @@ const TableView = ({ payments }) => {
             ) : (
               <tr>
                 <td colSpan={5} className="text-center py-8 text-gray-400">
-                  No payments found.
+                    <div className="py-6">
+                        <NoData/>
+                    </div>
+                  <p>You have no payments data to display.</p>
                 </td>
               </tr>
             )}

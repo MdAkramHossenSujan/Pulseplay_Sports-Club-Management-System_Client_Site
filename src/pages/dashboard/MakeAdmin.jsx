@@ -5,6 +5,7 @@ import Swal from "sweetalert2";
 import { FaUserShield, FaTrash, FaSearch } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
 import Loading from "../../shared/Loading";
+import NoData from "../../shared/NoData";
 
 const MakeAdmin = () => {
     const secureAxios = useSecureAxios();
@@ -101,6 +102,7 @@ const MakeAdmin = () => {
             {/* No search results */}
             {filteredUsers.length === 0 && searchTerm && (
                 <p className="text-center text-red-500 py-6 font-semibold">
+                    <NoData/>
                     No users found matching “{searchTerm}”
                 </p>
             )}

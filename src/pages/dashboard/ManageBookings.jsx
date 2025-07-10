@@ -5,6 +5,7 @@ import Loading from "../../shared/Loading";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import { FaTrash, FaCheck } from "react-icons/fa";
+import NoData from "../../shared/NoData";
 
 const ManageBookings = () => {
     const secureAxios = useSecureAxios();
@@ -210,7 +211,8 @@ const ManageBookings = () => {
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={6} className="text-center text-gray-400 py-10">
-                                    No bookings found.
+                                    <NoData/>
+                                    <p>You have no bookings to display.</p>
                                 </td>
                             </tr>
                         )}

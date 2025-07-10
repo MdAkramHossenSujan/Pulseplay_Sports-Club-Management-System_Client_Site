@@ -6,6 +6,7 @@ import Loading from '../../shared/Loading';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { FaTrash } from 'react-icons/fa';
+import NoData from '../../shared/NoData';
 
 const PendingBookings = () => {
     const secureAxios = useSecureAxios();
@@ -152,7 +153,8 @@ console.log(bookings)
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={7} className="text-center text-gray-400 py-10">
-                                    No pending bookings found.
+                                    <NoData/>
+                                    <p>You have no pending bookings to display.</p>
                                 </td>
                             </tr>
                         )}

@@ -160,7 +160,8 @@ const ApprovedBookings = () => {
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={7} className="text-center text-gray-400 py-10">
-                                    No approved bookings found.
+                                    <NoData/>
+                                    <p>You have no approved bookings to display.</p>
                                 </td>
                             </tr>
                         )}
