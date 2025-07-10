@@ -1,19 +1,47 @@
 import React, { Suspense } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus } from 'react-icons/fa';
+import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell } from 'react-icons/fa';
 import logo from '../assets/Logo/logo-transparent.png'
 import useUserData from '../hooks/useUserData';
 import { Menu } from 'lucide-react';
 import Theme from '../shared/Theme';
 import Loading from '../shared/Loading';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import useSecureAxios from '../hooks/useSecureAxios';
 const DashboardLayout = () => {
-    const { userData, isLoading, refetch } = useUserData()
+    const { userData, isLoading } = useUserData()
+    const secureAxios = useSecureAxios()
+    const queryClient = useQueryClient();
+    const { data, error,refetch } = useQuery({
+        queryKey: ['unread-announcement-count', userData?.email],
+        queryFn: async () => {
+            const res = await secureAxios.get('/notifications', {
+                params: {
+                    email: userData?.email
+                },
+            });
+            return res.data;
+        },
+    });
+    console.log(data)
+    const markNotificationsReadMutation = useMutation({
+        mutationFn: async (email) => {
+          return secureAxios.patch('/notifications/markRead', { email });
+        },
+        onSuccess: () => {
+          queryClient.invalidateQueries(['unread-announcement-count', userData?.email]);
+          refetch()
+        },
+      });
     if (isLoading) {
         return (
-            <Loading/>
+            <Loading />
         );
     }
     const role = userData?.role
+    const notificationCount = data?.length
+    console.log(notificationCount)
+
     console.log(role)
     return (
         <div>
@@ -38,16 +66,16 @@ const DashboardLayout = () => {
                             </label>
                         </div>
                         <div className="flex items-center gap-2">
-                       <Link to={'/'}>
-                       <img
-                                src={logo}
-                                alt="logo"
-                                className="w-12 h-12 border dark:border-green-600 rounded-full p-1"
-                            /></Link>
                             <Link to={'/'}>
-                            <span className="text-3xl font-bold text-green-600">
-                                PulsePlay
-                            </span>
+                                <img
+                                    src={logo}
+                                    alt="logo"
+                                    className="w-12 h-12 border dark:border-green-600 rounded-full p-1"
+                                /></Link>
+                            <Link to={'/'}>
+                                <span className="text-3xl font-bold text-green-600">
+                                    PulsePlay
+                                </span>
                             </Link>
                         </div>
                     </div>
@@ -55,9 +83,9 @@ const DashboardLayout = () => {
 
                     <div>
                         <Suspense fallback={
-                            <Loading/>
+                            <Loading />
                         }>
-                            <Outlet/>
+                            <Outlet />
                         </Suspense>
                     </div>
                 </div>
@@ -68,16 +96,16 @@ const DashboardLayout = () => {
                     <aside className="w-72 md:w-86 bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 min-h-full shadow-lg">
                         <div className="flex items-center p-6 gap-2">
                             <Link to={'/'}>
-                            <img
-                                src={logo}
-                                alt="logo"
-                                className="w-16 h-16 border dark:border-green-600 rounded-full p-1"
-                            />
+                                <img
+                                    src={logo}
+                                    alt="logo"
+                                    className="w-16 h-16 border dark:border-green-600 rounded-full p-1"
+                                />
                             </Link>
                             <Link to={'/'}>
-                            <span className="text-4xl font-bold text-green-600">
-                                PulsePlay
-                            </span></Link>
+                                <span className="text-4xl font-bold text-green-600">
+                                    PulsePlay
+                                </span></Link>
                         </div>
                         <hr className='border-dashed w-full' />
                         <nav className="menu p-4 space-y-4 text-gray-700 dark:text-gray-200">
@@ -156,6 +184,30 @@ const DashboardLayout = () => {
                                         <FaBullhorn /> Announcements
                                     </NavLink>
                                 </li>
+                                <li
+  className="relative"
+  onClick={() => {
+    markNotificationsReadMutation.mutate(userData.email);
+  }}
+>
+  <NavLink
+    to="/dashboard/notifications"
+    className={({ isActive }) =>
+      `flex items-center gap-2 px-3 py-2 rounded ${
+        isActive
+          ? 'text-green-700 font-semibold'
+          : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+      }`
+    }
+  >
+    <FaBell /> Notifications{' '}
+    <small className="absolute -top-0 left-6 text-xs">
+      {notificationCount}
+    </small>
+  </NavLink>
+</li>
+
+
                                 <li>
                                     <NavLink
                                         to="/dashboard/makeadmin"

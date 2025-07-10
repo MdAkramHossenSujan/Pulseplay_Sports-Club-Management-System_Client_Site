@@ -14,6 +14,7 @@ import MakeAdmin from "../pages/dashboard/MakeAdmin";
 import DashboardHome from "../pages/dashboard/DashboardHome";
 import PendingBookings from "../pages/dashboard/PendingBookings";
 import ManageBookings from "../pages/dashboard/ManageBookings";
+import Notifications from "../pages/dashboard/Notifications";
 
 export const router = createBrowserRouter([
   {
@@ -65,6 +66,9 @@ export const router = createBrowserRouter([
       {
         path:'addcourt',
         Component:AddCourt
+      },{
+        path:'notifications',
+        Component:Notifications
       }
     ]
   }
