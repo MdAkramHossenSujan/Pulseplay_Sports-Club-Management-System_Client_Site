@@ -15,6 +15,8 @@ import DashboardHome from "../pages/dashboard/DashboardHome";
 import PendingBookings from "../pages/dashboard/PendingBookings";
 import ManageBookings from "../pages/dashboard/ManageBookings";
 import Notifications from "../pages/dashboard/Notifications";
+import ApprovedBookings from "../pages/dashboard/ApprovedBookings";
+import Payment from "../pages/dashboard/payments/Payment";
 
 export const router = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ export const router = createBrowserRouter([
         Component:MakeAdmin
       },
       {
+        path:'payment/:id',
+        Component:Payment
+      },
+      {
         path:'pendingBookings',
         Component:PendingBookings
       },
@@ -69,6 +75,10 @@ export const router = createBrowserRouter([
       },{
         path:'notifications',
         Component:Notifications
+      },
+      {
+        path:'approvedBookings',
+        Component:ApprovedBookings
       }
     ]
   }

@@ -5,23 +5,29 @@ import useAuth from '../../hooks/useAuth';
 import Loading from '../../shared/Loading';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaMoneyBillWave } from 'react-icons/fa';
+import { useNavigate } from 'react-router';
 
-const PendingBookings = () => {
+const ApprovedBookings = () => {
     const secureAxios = useSecureAxios();
     const { user } = useAuth();
     const queryClient = useQueryClient();
+    const navigate = useNavigate();
 
+    // Fetch approved bookings
     const { data: bookings = [], isLoading, refetch } = useQuery({
-        queryKey: ['pending-bookings'],
+        queryKey: ['approved-bookings'],
         queryFn: async () => {
             const response = await secureAxios.get('/bookings', {
-                params: { email: user?.email,status: "pending"  }
+                params: {
+                    email: user?.email,
+                    status: "approved"
+                }
             });
             return response.data;
         },
     });
-console.log(bookings)
+    console.log(bookings)
     // Mutation for deleting booking
     const deleteBookingMutation = useMutation({
         mutationFn: async (id) => {
@@ -30,17 +36,17 @@ console.log(bookings)
         onSuccess: () => {
             Swal.fire({
                 icon: 'success',
-                title: 'Booking Deleted',
-                text: 'Your booking has been successfully removed.',
+                title: 'Booking Cancelled',
+                text: 'Your booking has been successfully cancelled.',
             });
-            queryClient.invalidateQueries(['pending-bookings']);
-            refetch()
+            queryClient.invalidateQueries(['approved-bookings']);
+            refetch();
         },
         onError: () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Could not delete the booking. Please try again.',
+                text: 'Could not cancel the booking. Please try again.',
             });
         },
     });
@@ -52,13 +58,11 @@ console.log(bookings)
     return (
         <div className="p-6">
             <div className='space-y-2 mb-6'>
-                <h2 className="text-4xl font-extrabold">
-                    Ready to Play? Check Your Pending Bookings!
+                <h2 className="text-4xl font-extrabold text-green-700">
+                    Your Approved Bookings
                 </h2>
                 <p className='italic'>
-                    Your bookings are currently pending admin approval.
-                    You’ll be notified via an announcement once it’s confirmed.
-                    Thank you for waiting patiently.
+                    These bookings are approved and ready for payment. You may proceed to payment or cancel your booking if your plans change.
                 </p>
             </div>
             <div className="overflow-x-auto">
@@ -100,15 +104,18 @@ console.log(bookings)
                                     </div>
                                 </td>
                                 <td>
-                                    {booking.slots.map((slot) => (
-                                        <span
-                                            key={slot}
-                                            className="badge badge-outline mr-1 mb-1"
-                                        >
-                                            {slot}
-                                        </span>
-                                    ))}
+                                    <div className="flex flex-wrap gap-2">
+                                        {booking.slots.map((slot) => (
+                                            <span
+                                                key={slot}
+                                                className="badge badge-outline dark:badge-success text-xs px-3 py-1"
+                                            >
+                                                {slot}
+                                            </span>
+                                        ))}
+                                    </div>
                                 </td>
+
                                 <td className="text-sm">
                                     {dayjs(booking.date).format('MMM DD, YYYY')}
                                 </td>
@@ -116,27 +123,28 @@ console.log(bookings)
                                     ৳ {booking.totalPrice}
                                 </td>
                                 <td>
-                                    <span
-                                        className={`badge ${booking.status === 'pending'                         
-                                                ? 'badge-outline dark:text-yellow-400'
-                                                : 'badge-success'
-                                            }`}
-                                    >
+                                    <span className="badge badge-success">
                                         {booking.status}
                                     </span>
                                 </td>
-                                <td>
+                                <td className="flex gap-2 my-6">
                                     <button
-                                        className="btn btn-outline text-red-600 btn-sm"
+                                        className="btn btn-outline dark:btn-success btn-sm flex items-center gap-2"
+                                        onClick={() => navigate(`/dashboard/payment/${booking._id}`)}
+                                    >
+                                        <FaMoneyBillWave /> Pay Now
+                                    </button>
+                                    <button
+                                        className="btn btn-outline text-red-600 border-red-600 btn-sm flex items-center gap-2"
                                         onClick={() => {
                                             Swal.fire({
                                                 title: 'Are you sure?',
-                                                text: `Do you want to delete your booking for ${booking.courtName}?`,
+                                                text: `Do you want to cancel your booking for ${booking.courtName}?`,
                                                 icon: 'warning',
                                                 showCancelButton: true,
                                                 confirmButtonColor: '#d33',
                                                 cancelButtonColor: '#3085d6',
-                                                confirmButtonText: 'Yes, delete it!',
+                                                confirmButtonText: 'Yes, cancel it!',
                                             }).then((result) => {
                                                 if (result.isConfirmed) {
                                                     deleteBookingMutation.mutate(booking._id);
@@ -144,7 +152,7 @@ console.log(bookings)
                                             });
                                         }}
                                     >
-                                       <FaTrash/> Delete
+                                        <FaTrash /> Cancel
                                     </button>
                                 </td>
                             </tr>
@@ -152,7 +160,7 @@ console.log(bookings)
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={7} className="text-center text-gray-400 py-10">
-                                    No pending bookings found.
+                                    No approved bookings found.
                                 </td>
                             </tr>
                         )}
@@ -163,5 +171,4 @@ console.log(bookings)
     );
 };
 
-export default PendingBookings;
-
+export default ApprovedBookings;

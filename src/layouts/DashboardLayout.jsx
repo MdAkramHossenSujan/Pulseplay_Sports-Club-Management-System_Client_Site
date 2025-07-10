@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router';
 import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell } from 'react-icons/fa';
 import logo from '../assets/Logo/logo-transparent.png'
 import useUserData from '../hooks/useUserData';
-import { Menu } from 'lucide-react';
+import { CheckCircle, Menu } from 'lucide-react';
 import Theme from '../shared/Theme';
 import Loading from '../shared/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -143,6 +143,19 @@ const DashboardLayout = () => {
                                         }
                                     >
                                         <FaClipboardList /> Pending Bookings
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/dashboard/approvedBookings"
+                                        className={({ isActive }) =>
+                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                ? ' text-green-700 font-semibold'
+                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                            }`
+                                        }
+                                    >
+                                        <CheckCircle /> Approved Bookings
                                     </NavLink>
                                 </li>
                                 <li>
