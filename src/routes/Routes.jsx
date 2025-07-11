@@ -24,6 +24,8 @@ import Forbidden from "../pages/Forbidden";
 import AdminRoute from "./AdminRoute";
 import MemberRoute from "./MemberRoute";
 import MemberAndUserRoute from "./MemberAndUserRoute";
+import AdminCourts from "../pages/dashboard/AdminCourts";
+import UpdateCourt from "../pages/dashboard/UpdateCourt";
 
 export const router = createBrowserRouter([
   {
@@ -120,6 +122,18 @@ export const router = createBrowserRouter([
         element:<MemberRoute>
           <ConfirmedBookings/>
         </MemberRoute>
+      },
+      {
+        path:'courts',
+        element:<AdminRoute>
+          <AdminCourts/>
+        </AdminRoute>
+      },
+      {
+        path:'updateCourt/:id',
+        element:<AdminRoute>
+          <UpdateCourt/>
+        </AdminRoute>
       }
     ]
   }

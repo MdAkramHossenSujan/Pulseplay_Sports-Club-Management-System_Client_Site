@@ -6,6 +6,7 @@ import field from "../assets/field.jpg";
 import toast from "react-hot-toast";
 import useAxios from "../hooks/useAxios";
 import { useNavigate } from "react-router";
+import useSecureAxios from "../hooks/useSecureAxios";
 
 const AddCourt = () => {
     const {
@@ -17,7 +18,7 @@ const AddCourt = () => {
     const navigate = useNavigate()
     const [imageURL, setImageURL] = useState("");
     const [uploading, setUploading] = useState(false);
-    const axiosInstance = useAxios()
+    const secureAxios=useSecureAxios()
     const slotTimes = [
         "08:00 - 09:00",
         "09:00 - 10:00",
@@ -66,7 +67,7 @@ const AddCourt = () => {
             if (result.isConfirmed) {
                 // Here is my API call
                 console.log("Court saved:", courtData);
-                await axiosInstance.post('/courts', courtData)
+                await secureAxios.post('/courts', courtData)
                 reset();
                 setImageURL("");
                 navigate('/courts')
