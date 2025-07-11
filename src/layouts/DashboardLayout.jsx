@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
 import { Link, NavLink, Outlet } from 'react-router';
-import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell, FaMoneyBillWave } from 'react-icons/fa';
+import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell, FaMoneyBillWave, FaMoneyBillWaveAlt } from 'react-icons/fa';
 import logo from '../assets/Logo/logo-transparent.png'
 import useUserData from '../hooks/useUserData';
-import { BadgeCheck, CheckCircle, LayoutGrid, ListCheck, Menu } from 'lucide-react';
+import { BadgeCheck, CheckCircle, LayoutGrid, ListCheck, Megaphone, Menu } from 'lucide-react';
 import Theme from '../shared/Theme';
 import Loading from '../shared/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -121,7 +121,7 @@ const DashboardLayout = () => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/dashboard/myprofile"
+                                        to="/dashboard/profile"
                                         className={({ isActive }) =>
                                             `flex items-center gap-2 px-3 py-2 rounded ${isActive
                                                 ? ' text-green-700 font-semibold'
@@ -217,6 +217,19 @@ const DashboardLayout = () => {
                                                 </small>
                                             </NavLink>
                                         </li>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/memberAnnouncements"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaBullhorn />Announcements
+                                            </NavLink>
+                                        </li>
                                     </>
                                 }
                                 {/*Admin Links */}
@@ -277,6 +290,32 @@ const DashboardLayout = () => {
                                         </li>
                                         <li>
                                             <NavLink
+                                                to="/dashboard/manageCoupons"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaMoneyBillWaveAlt />Coupons Managements
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/manageAnnounces"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <Megaphone />Manage Announcement
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
                                                 to="/dashboard/makeadmin"
                                                 className={({ isActive }) =>
                                                     `flex items-center gap-2 px-3 py-2 rounded ${isActive
@@ -289,19 +328,24 @@ const DashboardLayout = () => {
                                             </NavLink>
                                         </li></>
                                 }
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/announcements"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaBullhorn /> Announcements
-                                    </NavLink>
-                                </li>
+                                {
+                                    role === 'user' &&
+                                    <>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/announcements"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaBullhorn /> Announcements
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                }
                             </ul>
                         </nav>
                     </aside>

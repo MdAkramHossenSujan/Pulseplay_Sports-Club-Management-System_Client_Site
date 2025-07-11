@@ -26,6 +26,12 @@ import MemberRoute from "./MemberRoute";
 import MemberAndUserRoute from "./MemberAndUserRoute";
 import AdminCourts from "../pages/dashboard/AdminCourts";
 import UpdateCourt from "../pages/dashboard/UpdateCourt";
+import ManageCoupons from "../pages/dashboard/ManageCoupons";
+import AnnouncementsManagement from "../pages/dashboard/AnnouncementsManagement";
+import Profile from "../pages/dashboard/Profile";
+import UserAnnouncements from "../pages/dashboard/UserAnnouncements";
+import UserRoute from "./UserRoute";
+import MemberAnnouncements from "../pages/dashboard/MemberAnnouncements";
 
 export const router = createBrowserRouter([
   {
@@ -75,6 +81,10 @@ export const router = createBrowserRouter([
       {
         path:'payment/:id',
         Component:Payment
+      },
+      {
+path:'profile',
+Component:Profile
       },
       {
         path:'pendingBookings',
@@ -134,6 +144,30 @@ export const router = createBrowserRouter([
         element:<AdminRoute>
           <UpdateCourt/>
         </AdminRoute>
+      },
+      {
+        path:'manageCoupons',
+        element:<AdminRoute>
+          <ManageCoupons/>
+        </AdminRoute>
+      },
+      {
+        path:'manageAnnounces',
+        element:<AdminRoute>
+          <AnnouncementsManagement/>
+        </AdminRoute>
+      },
+      {
+        path:'announcements',
+        element:<UserRoute>
+          <UserAnnouncements/>
+        </UserRoute>
+      },
+      {
+        path:'memberAnnouncements',
+        element:<MemberRoute>
+          <MemberAnnouncements/>
+        </MemberRoute>
       }
     ]
   }
