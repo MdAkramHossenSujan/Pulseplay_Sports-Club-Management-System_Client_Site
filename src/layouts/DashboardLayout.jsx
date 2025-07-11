@@ -3,7 +3,7 @@ import { Link, NavLink, Outlet } from 'react-router';
 import { FaUserCircle, FaClipboardList, FaBullhorn, FaUserShield, FaHome, FaEdit, FaPlus, FaBell, FaMoneyBillWave } from 'react-icons/fa';
 import logo from '../assets/Logo/logo-transparent.png'
 import useUserData from '../hooks/useUserData';
-import { CheckCircle, Menu } from 'lucide-react';
+import { BadgeCheck, CheckCircle, ListCheck, Menu } from 'lucide-react';
 import Theme from '../shared/Theme';
 import Loading from '../shared/Loading';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -132,58 +132,150 @@ const DashboardLayout = () => {
                                         <FaUserCircle /> My Profile
                                     </NavLink>
                                 </li>
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/pendingBookings"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaClipboardList /> Pending Bookings
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/approvedBookings"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <CheckCircle /> Approved Bookings
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/manageBooking"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaEdit />Manage bookings
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/addcourt"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaPlus />Add Court
-                                    </NavLink>
-                                </li>
+                                {/*member || user */}
+                                {
+                                    (role === 'member' || role === 'user') && (
+                                        <>
+                                            <li>
+                                                <NavLink
+                                                    to="/dashboard/pendingBookings"
+                                                    className={({ isActive }) =>
+                                                        `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                            ? 'text-green-700 font-semibold'
+                                                            : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                        }`
+                                                    }
+                                                >
+                                                    <FaClipboardList /> Pending Bookings
+                                                </NavLink>
+                                            </li>
+                                        </>
+                                    )
+                                }
+
+                                {/*Member Links */}
+                                {
+                                    role === 'member' &&
+                                    <>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/approvedBookings"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 md:px-1 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <CheckCircle className='w-4 md:w-8' /> Approved Bookings
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/confirmedBookings"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 md:px-1 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <BadgeCheck className='w-4 md:w-8' /> Confirmed Bookings
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/paymentHistory"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaMoneyBillWave /> Payment History
+                                            </NavLink>
+                                        </li>
+                                        <li
+                                            className="relative"
+                                            onClick={() => {
+                                                markNotificationsReadMutation.mutate(userData.email);
+                                            }}
+                                        >
+                                            <NavLink
+                                                to="/dashboard/notifications"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? 'text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaBell /> Notifications{' '}
+                                                <small className="absolute -top-0 left-6 text-xs">
+                                                    {notificationCount}
+                                                </small>
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                }
+                                {
+                                    role === 'admin' &&
+                                    <>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/manageBooking"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaEdit />Manage bookings Request
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/manageBookingConfirmed"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <ListCheck className='md:mb-6.5' />Manage Confirmed Bookings
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/addcourt"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaPlus />Add Court
+                                            </NavLink>
+                                        </li>
+
+                                        <li>
+                                            <NavLink
+                                                to="/dashboard/makeadmin"
+                                                className={({ isActive }) =>
+                                                    `flex items-center gap-2 px-3 py-2 rounded ${isActive
+                                                        ? ' text-green-700 font-semibold'
+                                                        : 'hover:bg-gray-100 dark:hover:bg-gray-700'
+                                                    }`
+                                                }
+                                            >
+                                                <FaUserShield /> Make Admin
+                                            </NavLink>
+                                        </li></>
+                                }
                                 <li>
                                     <NavLink
                                         to="/dashboard/announcements"
@@ -195,55 +287,6 @@ const DashboardLayout = () => {
                                         }
                                     >
                                         <FaBullhorn /> Announcements
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/paymentHistory"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaMoneyBillWave /> Payment History
-                                    </NavLink>
-                                </li>
-                                <li
-                                    className="relative"
-                                    onClick={() => {
-                                        markNotificationsReadMutation.mutate(userData.email);
-                                    }}
-                                >
-                                    <NavLink
-                                        to="/dashboard/notifications"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? 'text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaBell /> Notifications{' '}
-                                        <small className="absolute -top-0 left-6 text-xs">
-                                            {notificationCount}
-                                        </small>
-                                    </NavLink>
-                                </li>
-
-
-                                <li>
-                                    <NavLink
-                                        to="/dashboard/makeadmin"
-                                        className={({ isActive }) =>
-                                            `flex items-center gap-2 px-3 py-2 rounded ${isActive
-                                                ? ' text-green-700 font-semibold'
-                                                : 'hover:bg-gray-100 dark:hover:bg-gray-700'
-                                            }`
-                                        }
-                                    >
-                                        <FaUserShield /> Make Admin
                                     </NavLink>
                                 </li>
                             </ul>

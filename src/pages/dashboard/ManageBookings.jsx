@@ -16,7 +16,7 @@ const ManageBookings = () => {
         queryFn: async () => {
             const res = await secureAxios.get("/bookings",
                 {
-                    params:{status:'pending'}
+                    params: { status: 'pending' }
                 }
             );
             return res.data;
@@ -26,21 +26,21 @@ const ManageBookings = () => {
     // Delete (Reject) booking mutation
     const rejectBookingMutation = useMutation({
         mutationFn: async (id) => {
-            const res = await secureAxios.patch(`/bookings/${id}`,{
-                status:'rejected'
+            const res = await secureAxios.patch(`/bookings/${id}`, {
+                status: 'rejected'
             });
             return res.data;
         },
-        onSuccess: async(booking) => {
-                console.log(booking)
+        onSuccess: async (booking) => {
+            console.log(booking)
             await secureAxios.post('/notifications', {
                 userEmail: booking.bookedBy,
                 title: 'Booking Rejected!',
                 message: `Your booking for ${booking.courtName} on ${dayjs(booking.date).format('MMM DD, YYYY')} has been rejected.`,
-                read:false,
-                status:'rejected',
-                rejectedAt:new Date()
-              });
+                read: false,
+                status: 'rejected',
+                rejectedAt: new Date()
+            });
             Swal.fire({
                 title: "Success",
                 text: "Booking rejected successfully!",
@@ -70,10 +70,15 @@ const ManageBookings = () => {
                 userEmail: booking.bookedBy,
                 title: 'Booking Approved!',
                 message: `Your booking for ${booking.courtName} on ${dayjs(booking.date).format('MMM DD, YYYY')} has been approved.`,
-                read:false,
-                status:'approved',
-                approvedAt:new Date()
-              });
+                read: false,
+                status: 'approved',
+                approvedAt: new Date()
+            });
+
+            await secureAxios.patch('/users', {
+                email: booking.bookedBy,
+                role: 'member'
+            })
             Swal.fire({
                 title: "Success",
                 text: "Booking approved successfully!",
@@ -120,7 +125,7 @@ const ManageBookings = () => {
 
                                 {/* Total Price */}
                                 <td className="font-semibold text-green-600">
-                                ${booking.totalPrice}
+                                    ${booking.totalPrice}
                                 </td>
 
                                 {/* Merged Details Cell */}
@@ -143,9 +148,9 @@ const ManageBookings = () => {
                                     {booking.slots.map((slot) => (
                                         <span
                                             key={slot}
-                                            className="badge badge-outline text-xs"
+                                            className="md:badge md:badge-outline text-xs"
                                         >
-                                            {slot}
+                                            {slot}<span className='md:hidden'>,<br /></span>
                                         </span>
                                     ))}
                                 </td>
@@ -171,7 +176,7 @@ const ManageBookings = () => {
                                                         confirmButtonText: "Yes, approve!",
                                                     }).then((result) => {
                                                         if (result.isConfirmed) {
-                                                            approveBookingMutation.mutate(booking._id,booking);
+                                                            approveBookingMutation.mutate(booking._id, booking);
                                                         }
                                                     });
                                                 }
@@ -196,7 +201,7 @@ const ManageBookings = () => {
                                                     confirmButtonText: "Yes, reject it!",
                                                 }).then((result) => {
                                                     if (result.isConfirmed) {
-                                                        rejectBookingMutation.mutate(booking._id,booking);
+                                                        rejectBookingMutation.mutate(booking._id, booking);
                                                     }
                                                 })
                                             }
@@ -211,7 +216,7 @@ const ManageBookings = () => {
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={6} className="text-center text-gray-400 py-10">
-                                    <NoData/>
+                                    <NoData />
                                     <p>You have no bookings to display.</p>
                                 </td>
                             </tr>

@@ -53,7 +53,7 @@ console.log(bookings)
     return (
         <div className="p-6">
             <div className='space-y-2 mb-6'>
-                <h2 className="text-4xl font-extrabold">
+                <h2 className="text-3xl md:text-4xl font-extrabold">
                     Ready to Play? Check Your Pending Bookings!
                 </h2>
                 <p className='italic'>
@@ -104,9 +104,9 @@ console.log(bookings)
                                     {booking.slots.map((slot) => (
                                         <span
                                             key={slot}
-                                            className="badge badge-outline mr-1 mb-1"
+                                            className="md:badge md:badge-outline mr-1 mb-1"
                                         >
-                                            {slot}
+                                            {slot}<span className='md:hidden'>,<br /></span>
                                         </span>
                                     ))}
                                 </td>
@@ -128,7 +128,7 @@ console.log(bookings)
                                 </td>
                                 <td>
                                     <button
-                                        className="btn btn-outline text-red-600 btn-sm"
+                                        className="btn btn-outline hover:border-red-400 text-red-600 btn-sm"
                                         onClick={() => {
                                             Swal.fire({
                                                 title: 'Are you sure?',

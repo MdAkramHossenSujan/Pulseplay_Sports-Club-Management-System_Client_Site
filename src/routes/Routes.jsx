@@ -18,6 +18,12 @@ import Notifications from "../pages/dashboard/Notifications";
 import ApprovedBookings from "../pages/dashboard/ApprovedBookings";
 import Payment from "../pages/dashboard/payments/Payment";
 import PaymentHistory from "../pages/dashboard/payments/PaymentHistory";
+import ManageBookingConfirmed from "../pages/dashboard/ManageBookingConfirmed";
+import ConfirmedBookings from "../pages/dashboard/ConfirmedBookings";
+import Forbidden from "../pages/Forbidden";
+import AdminRoute from "./AdminRoute";
+import MemberRoute from "./MemberRoute";
+import MemberAndUserRoute from "./MemberAndUserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -40,6 +46,10 @@ export const router = createBrowserRouter([
       {
         path: '/courts',
         Component: Courts
+      },
+      {
+        path:'/forbidden',
+        Component:Forbidden
       }
     ]
   },
@@ -56,7 +66,9 @@ export const router = createBrowserRouter([
       },
       {
         path:'makeadmin',
-        Component:MakeAdmin
+        element:<AdminRoute>
+          <MakeAdmin/>
+        </AdminRoute>
       },
       {
         path:'payment/:id',
@@ -64,26 +76,50 @@ export const router = createBrowserRouter([
       },
       {
         path:'pendingBookings',
-        Component:PendingBookings
+       element:<MemberAndUserRoute>
+        <PendingBookings/>
+       </MemberAndUserRoute>
       },
       {
         path:'manageBooking',
-        Component:ManageBookings
+       element:<AdminRoute>
+        <ManageBookings/>
+       </AdminRoute>
       },
       {
         path:'addcourt',
-        Component:AddCourt
+        element:<AdminRoute>
+          <AddCourt/>
+        </AdminRoute>
       },{
         path:'notifications',
-        Component:Notifications
+        element:<MemberRoute>
+          <Notifications/>
+        </MemberRoute>
       },
       {
         path:'approvedBookings',
-        Component:ApprovedBookings
+        element:<MemberRoute>
+          <ApprovedBookings/>
+        </MemberRoute>
       },
       {
         path:'paymentHistory',
-        Component:PaymentHistory
+        element:<MemberRoute>
+          <PaymentHistory/>
+        </MemberRoute>
+      },
+      {
+        path:'manageBookingConfirmed',
+        element:<AdminRoute>
+          <ManageBookingConfirmed/>
+        </AdminRoute>
+      },
+      {
+        path:'confirmedBookings',
+        element:<MemberRoute>
+          <ConfirmedBookings/>
+        </MemberRoute>
       }
     ]
   }

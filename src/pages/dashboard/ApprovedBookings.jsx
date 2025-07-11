@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { FaTrash, FaMoneyBillWave } from 'react-icons/fa';
 import { useNavigate } from 'react-router';
+import NoData from '../../shared/NoData';
 
 const ApprovedBookings = () => {
     const secureAxios = useSecureAxios();
@@ -108,19 +109,20 @@ const ApprovedBookings = () => {
                                         {booking.slots.map((slot) => (
                                             <span
                                                 key={slot}
-                                                className="badge badge-outline dark:badge-success text-xs px-3 py-1"
+                                                className="md:badge md:badge-outline md:dark:badge-success text-xs"
                                             >
-                                                {slot}
+                                                {slot}<span className='md:hidden'>,<br /></span>
                                             </span>
                                         ))}
                                     </div>
+
                                 </td>
 
                                 <td className="text-sm">
                                     {dayjs(booking.date).format('MMM DD, YYYY')}
                                 </td>
                                 <td className="font-semibold text-green-600">
-                                ${booking.totalPrice}
+                                    ${booking.totalPrice}
                                 </td>
                                 <td>
                                     <span className="badge badge-success">
@@ -160,7 +162,7 @@ const ApprovedBookings = () => {
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={7} className="text-center text-gray-400 py-10">
-                                    <NoData/>
+                                    <NoData />
                                     <p>You have no approved bookings to display.</p>
                                 </td>
                             </tr>
