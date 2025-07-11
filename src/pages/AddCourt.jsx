@@ -112,7 +112,7 @@ const AddCourt = () => {
             <div className="absolute inset-0 bg-gradient-to-br backdrop-blur-xs from-black/90 via-green-900/40 to-black/70"></div>
 
             {/* Form container */}
-            <div className="relative z-10 w-full max-w-5xl bg-base-200 backdrop-blur-xl rounded-lg px-8 py-8 shadow-lg">
+            <div className="relative w-full max-w-5xl bg-base-200 backdrop-blur-xl rounded-lg px-8 py-8 shadow-lg">
                 <h2 className="text-4xl lg:text-5xl font-bold text-center text-green-600 mb-4">
                     Add New Court
                 </h2>
