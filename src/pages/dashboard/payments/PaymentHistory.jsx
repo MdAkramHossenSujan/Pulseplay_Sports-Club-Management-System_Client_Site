@@ -10,23 +10,20 @@ import useAuth from "../../../hooks/useAuth";
 
 const PaymentHistory = () => {
   const [isTableView, setIsTableView] = useState(true);
-  const {user}=useAuth()
-  const secureAxios=useSecureAxios()
-const {data,isLoading}=useQuery(
+  const { user } = useAuth()
+  const secureAxios = useSecureAxios()
+  const { data, isLoading } = useQuery(
     {
-        queryKey:['payments'],
-        queryFn:async()=>{
-            const res=await secureAxios.get('/payments',{
-                params:{email:user.email}
-            })
-            return res.data
-        }
+      queryKey: ['payments'],
+      queryFn: async () => {
+        const res = await secureAxios.get('/payments', {
+          params: { email: user.email }
+        })
+        return res.data
+      }
     }
-)
-const payments=data
-if(isLoading){
-    <Loading/>
-}
+  )
+  const payments = data
   return (
     <div className="md:p-6 p-4">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
@@ -54,12 +51,17 @@ if(isLoading){
           )}
         </button>
       </div>
+      {/*Found a solution for better displaying data not displaying No data found*/}
+      {
+        isLoading ? (
+          <Loading />
+        ) : isTableView ? (
+          <TableView payments={payments} />
+        ) : (
+          <CardView payments={payments} />
+        )
+      }
 
-      {isTableView ? (
-        <TableView payments={payments} />
-      ) : (
-        <CardView payments={payments} />
-      )}
     </div>
   );
 };

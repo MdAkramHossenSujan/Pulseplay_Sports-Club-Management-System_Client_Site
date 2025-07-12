@@ -48,9 +48,6 @@ const ManageBookingConfirmed = () => {
         );
     }, [bookings, searchTerm]);
 
-    if (isLoading) {
-        return <Loading />;
-    }
     //Real time using dayjs
     const calculateTimeRemaining = (date) => {
         const now = dayjs();
@@ -94,12 +91,12 @@ const ManageBookingConfirmed = () => {
     };
 
     return (
-        <div className="p-6 max-w-7xl mx-auto">
-            <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold mb-4 text-green-700">
+        <div className="p-6 max-w-7xl lg:py-20">
+            <div className=" mb-8">
+                <h2 className="text-3xl font-extrabold mb-4">
                     Manage Confirmed Bookings
                 </h2>
-                <p className="text-gray-500 max-w-3xl mx-auto">
+                <p className="text-gray-500 max-w-3xl italic">
                     View and manage all confirmed bookings for your sports facilities.
                     Use the tools below to notify players, monitor upcoming sessions,
                     and keep your schedule running smoothly. Stay on top of your bookings
@@ -122,84 +119,86 @@ const ManageBookingConfirmed = () => {
                 </div>
             </div>
 
-            <div className="overflow-x-auto">
-                <table className="table w-full">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Court Info</th>
-                            <th>Booked By</th>
-                            <th>Slots</th>
-                            <th>Sport Date</th>
-                            <th>Time Remaining</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredBookings.length > 0 ? (
-                            filteredBookings.map((booking, index) => (
-                                <tr key={booking._id} className="hover">
-                                    <td>{index + 1}</td>
-                                    <td>
-                                        <div className="flex items-center gap-4">
-                                            <div className="avatar">
-                                                <div className="w-12 h-12 rounded ring dark:ring-green-500 ring-offset-2">
-                                                    <img
-                                                        src={booking.courtImage}
-                                                        alt={booking.courtName}
-                                                    />
+            {
+                isLoading ? <Loading /> : <div className="overflow-x-auto">
+                    <table className="table w-full">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Court Info</th>
+                                <th>Booked By</th>
+                                <th>Slots</th>
+                                <th>Sport Date</th>
+                                <th>Time Remaining</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {filteredBookings.length > 0 ? (
+                                filteredBookings.map((booking, index) => (
+                                    <tr key={booking._id} className="hover">
+                                        <td>{index + 1}</td>
+                                        <td>
+                                            <div className="flex items-center gap-4">
+                                                <div className="avatar">
+                                                    <div className="w-12 h-12 rounded ring dark:ring-green-500 ring-offset-2">
+                                                        <img
+                                                            src={booking.courtImage}
+                                                            alt={booking.courtName}
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <p className="font-bold text-green-700">
+                                                        {booking.courtName}
+                                                    </p>
+                                                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                                                        {booking.courtType}
+                                                    </p>
                                                 </div>
                                             </div>
-                                            <div>
-                                                <p className="font-bold text-green-700">
-                                                    {booking.courtName}
-                                                </p>
-                                                <p className="text-sm text-gray-600 dark:text-gray-300">
-                                                    {booking.courtType}
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td className="text-gray-700 dark:text-gray-300">
-                                        {booking.bookedBy}
-                                    </td>
-                                    <td>
-                                        {booking.slots.map((slot) => (
-                                            <span
-                                                key={slot}
-                                                className="md:badge md:badge-outline mr-1 mb-1 dark:text-green-300"
+                                        </td>
+                                        <td className="text-gray-700 dark:text-gray-300">
+                                            {booking.bookedBy}
+                                        </td>
+                                        <td>
+                                            {booking.slots.map((slot) => (
+                                                <span
+                                                    key={slot}
+                                                    className="md:badge md:badge-outline mr-1 mb-1 dark:text-green-300"
+                                                >
+                                                    {slot}<span className='md:hidden'>,<br /></span>
+                                                </span>
+                                            ))}
+                                        </td>
+                                        <td className="lg:text-sm text-xs">
+                                            {dayjs(booking.date).format('MMM DD, YYYY')}
+                                        </td>
+                                        <td className="my-7 dark:text-green-300 lg:text-sm text-xs flex items-center gap-2">
+                                            <FaClock />
+                                            {calculateTimeRemaining(booking.date)}
+                                        </td>
+                                        <td>
+                                            <button
+                                                className="btn btn-sm btn-outline text-green-800 dark:text-green-300 dark:btn-success flex items-center gap-2"
+                                                onClick={() => handleNotify(booking)}
                                             >
-                                                {slot}<span className='md:hidden'>,<br /></span>
-                                            </span>
-                                        ))}
-                                    </td>
-                                    <td className="lg:text-sm text-xs">
-                                        {dayjs(booking.date).format('MMM DD, YYYY')}
-                                    </td>
-                                    <td className="my-7 dark:text-green-300 lg:text-sm text-xs flex items-center gap-2">
-                                        <FaClock />
-                                        {calculateTimeRemaining(booking.date)}
-                                    </td>
-                                    <td>
-                                        <button
-                                            className="btn btn-sm btn-outline text-green-800 dark:text-green-300 dark:btn-success flex items-center gap-2"
-                                            onClick={() => handleNotify(booking)}
-                                        >
-                                            <FaBell /> Notify
-                                        </button>
+                                                <FaBell /> Notify
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))
+                            ) : (
+                                <tr>
+                                    <td colSpan={7} className="text-center py-10 text-gray-400">
+                                        No confirmed bookings found.
                                     </td>
                                 </tr>
-                            ))
-                        ) : (
-                            <tr>
-                                <td colSpan={7} className="text-center py-10 text-gray-400">
-                                    No confirmed bookings found.
-                                </td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                            )}
+                        </tbody>
+                    </table>
+                </div>
+            }
         </div>
     );
 };

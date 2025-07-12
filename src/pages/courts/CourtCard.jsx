@@ -17,7 +17,7 @@ const CourtCard = ({ court }) => {
         exit={{ opacity: 0, y: 50, scale: 0.95 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
-        className="bg-base-100 max-w-7xl lg:h-76 mx-auto border border-gray-200 rounded-lg shadow overflow-hidden flex flex-col md:flex-row mb-8"
+        className="bg-base-100 max-w-7xl h-76 mx-auto border border-gray-200 rounded-lg shadow overflow-hidden flex flex-col md:flex-row mb-8"
       >
         {/* Left - Image */}
         <div className="md:w-1/2 w-full h-64 md:h-auto">

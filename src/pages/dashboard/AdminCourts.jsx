@@ -71,16 +71,13 @@ const AdminCourts = () => {
     setCurrentPage(event.selected);
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
 
   return (
     <div className="p-4 md:p-6">
-      <h2 className="text-3xl md:text-4xl font-bold text-center text-green-700 mb-4">
+      <h2 className="text-3xl md:text-4xl font-extrabold mb-4">
         Manage Courts
       </h2>
-      <p className="text-center max-w-3xl mx-auto italic mb-8">
+      <p className="max-w-3xl italic mb-8">
         Here you can view, edit, or remove courts available in the system.
         Keep the court information updated to ensure users have accurate
         details for booking their preferred sports sessions. Use the table
@@ -88,83 +85,86 @@ const AdminCourts = () => {
       </p>
 
 
-      <div className="overflow-x-auto w-full">
-        <table className="table w-full text-sm md:text-base">
-          <thead className="bg-gray-200 dark:bg-gray-800">
-            <tr>
-              <th>#</th>
-              <th>Court Details</th>
-              <th>Price</th>
-              <th>Full Slots of courts</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentCourts.map((court, index) => (
-              <tr key={court._id} className="hover">
-                <td>{offset + index + 1}</td>
-                <td>
-                  <div className="flex flex-col md:flex-row items-center gap-3">
-                    <img
-                      src={court.courtImage}
-                      alt={court.courtName}
-                      className="w-20 h-16 object-cover rounded border dark:border-green-600 border-gray-300"
-                    />
-                    <div>
-                      <p className="font-semibold text-green-700 text-sm md:text-base">
-                        {court.courtName}
-                      </p>
-                      <p className="text-xs md:text-sm text-gray-600">
-                        {court.courtType}
-                      </p>
-                    </div>
-                  </div>
-                </td>
-                <td className="text-green-600 font-medium">
-                  $ {court.pricePerSession}
-                </td>
-                <td>
-                  <div className="flex flex-wrap gap-1 max-w-[200px]">
-                    {court.slots.map((slot) => (
-                      <span
-                        key={slot}
-                        className="badge badge-outline text-xs px-2 py-1"
-                      >
-                        {slot}
-                      </span>
-                    ))}
-                  </div>
-                </td>
-                <td>
-                  <div className="flex flex-col md:flex-row gap-2">
-                    <button
-                      className="btn btn-xs btn-outline btn-primary flex items-center gap-1"
-                      onClick={() =>
-                        navigate(`/dashboard/updateCourt/${court._id}`)
-                      }
-                    >
-                      <FaEdit /> Edit
-                    </button>
-                    <button
-                      className="btn btn-xs btn-outline btn-error flex items-center gap-1"
-                      onClick={() => handleDelete(court._id, court.courtName)}
-                    >
-                      <FaTrash /> Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-            ))}
-            {Courts.length === 0 && (
-              <tr>
-                <td colSpan={5} className="text-center text-gray-400 py-10">
-                  No courts available.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      {
+        isLoading ? <Loading /> :
+          <div className="overflow-x-auto w-full">
+            <table className="table w-full text-sm md:text-base">
+              <thead className="bg-gray-200 dark:bg-gray-800">
+                <tr>
+                  <th>#</th>
+                  <th>Court Details</th>
+                  <th>Price</th>
+                  <th>Full Slots of courts</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentCourts.map((court, index) => (
+                  <tr key={court._id} className="hover">
+                    <td>{offset + index + 1}</td>
+                    <td>
+                      <div className="flex flex-col md:flex-row items-center gap-3">
+                        <img
+                          src={court.courtImage}
+                          alt={court.courtName}
+                          className="w-20 h-16 object-cover rounded border dark:border-green-600 border-gray-300"
+                        />
+                        <div>
+                          <p className="font-semibold text-green-700 text-sm md:text-base">
+                            {court.courtName}
+                          </p>
+                          <p className="text-xs md:text-sm text-gray-600">
+                            {court.courtType}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="text-green-600 font-medium">
+                      $ {court.pricePerSession}
+                    </td>
+                    <td>
+                      <div className="flex flex-wrap gap-1 max-w-[200px]">
+                        {court.slots.map((slot) => (
+                          <span
+                            key={slot}
+                            className="badge badge-outline text-xs px-2 py-1"
+                          >
+                            {slot}
+                          </span>
+                        ))}
+                      </div>
+                    </td>
+                    <td>
+                      <div className="flex flex-col md:flex-row gap-2">
+                        <button
+                          className="btn btn-xs btn-outline btn-primary flex items-center gap-1"
+                          onClick={() =>
+                            navigate(`/dashboard/updateCourt/${court._id}`)
+                          }
+                        >
+                          <FaEdit /> Edit
+                        </button>
+                        <button
+                          className="btn btn-xs btn-outline btn-error flex items-center gap-1"
+                          onClick={() => handleDelete(court._id, court.courtName)}
+                        >
+                          <FaTrash /> Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {Courts.length === 0 && (
+                  <tr>
+                    <td colSpan={5} className="text-center text-gray-400 py-10">
+                      No courts available.
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+      }
 
       {Courts.length > itemsPerPage && (
         <div className="mt-6 flex justify-center">
