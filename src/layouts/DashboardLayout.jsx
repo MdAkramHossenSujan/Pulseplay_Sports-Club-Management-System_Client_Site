@@ -12,7 +12,7 @@ const DashboardLayout = () => {
     const { userData, isLoading } = useUserData()
     const secureAxios = useSecureAxios()
     const queryClient = useQueryClient();
-    const { data, error, refetch } = useQuery({
+    const { data, refetch } = useQuery({
         queryKey: ['unread-announcement-count', userData?.email],
         queryFn: async () => {
             const res = await secureAxios.get('/notifications', {

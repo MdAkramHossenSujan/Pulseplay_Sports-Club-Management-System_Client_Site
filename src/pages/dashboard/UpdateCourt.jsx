@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
 import field from "../../assets/field.jpg";
 import toast from "react-hot-toast";
 import { useNavigate, useParams } from "react-router";
-
 import useSecureAxios from "../../hooks/useSecureAxios";
-import Loading from "../../shared/Loading";
 
 const UpdateCourt = () => {
     const { id } = useParams();

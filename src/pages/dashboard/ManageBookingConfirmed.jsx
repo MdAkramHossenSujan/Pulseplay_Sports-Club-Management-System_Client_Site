@@ -13,7 +13,7 @@ const ManageBookingConfirmed = () => {
     const secureAxios = useSecureAxios();
     const [searchTerm, setSearchTerm] = useState("");
 
-    const { data: bookings = [], isLoading, refetch } = useQuery({
+    const { data: bookings = [], isLoading} = useQuery({
         queryKey: ['bookings-confirmed'],
         queryFn: async () => {
             const res = await secureAxios.get('/bookings/confirmed');

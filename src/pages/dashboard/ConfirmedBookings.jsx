@@ -29,8 +29,8 @@ const ConfirmedBookings = () => {
     console.log(bookings)
     return (
         <div className="p-6">
-            <div className="mb-6 text-center space-y-2">
-                <h2 className="text-3xl font-bold text-green-700">
+            <div className="mb-6 space-y-2">
+                <h2 className="text-4xl font-extrabold">
                     Confirmed Bookings
                 </h2>
                 <p className="text-gray-600 dark:text-gray-300">

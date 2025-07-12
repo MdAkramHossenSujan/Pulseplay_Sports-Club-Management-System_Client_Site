@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { FaTrash } from 'react-icons/fa';
 import NoData from '../../shared/NoData';
-import LoadingMiddle from '../../shared/LoadingMiddle';
+import Loading from '../../shared/Loading';
 
 const PendingBookings = () => {
     const secureAxios = useSecureAxios();
@@ -51,7 +51,7 @@ const PendingBookings = () => {
     return (
         <>
             {
-                isLoading ? <LoadingMiddle /> :
+                isLoading ? <Loading /> :
                     bookings.length === 0 ? <div className='space-y-2 mb-6 p-6 lg:py-20'>
                         <h2 className="text-3xl md:text-4xl font-extrabold">
                             Ready to Play? Check Your Pending Bookings!
