@@ -4,8 +4,8 @@ import useSecureAxios from "../../hooks/useSecureAxios";
 import Swal from "sweetalert2";
 import { FaUserShield, FaTrash, FaSearch } from "react-icons/fa";
 import ReactPaginate from "react-paginate";
-import Loading from "../../shared/Loading";
 import NoData from "../../shared/NoData";
+import LoadingMiddle from "../../shared/LoadingMiddle";
 
 const MakeAdmin = () => {
     const secureAxios = useSecureAxios();
@@ -96,7 +96,7 @@ const MakeAdmin = () => {
                 />
             </div>
             {
-                isLoading && <Loading/>
+                isLoading && <LoadingMiddle/>
             }
             {/* User Data With Search */}
             {/* No search results */}

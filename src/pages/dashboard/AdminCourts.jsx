@@ -2,11 +2,10 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
 import useAxios from '../../hooks/useAxios';
-import Loading from '../../shared/Loading';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import ReactPaginate from 'react-paginate';
-
+import LoadingMiddle from '../../shared/LoadingMiddle';
 
 const AdminCourts = () => {
   const axiosInstance = useAxios();
@@ -86,7 +85,7 @@ const AdminCourts = () => {
 
 
       {
-        isLoading ? <Loading /> :
+        isLoading ? <LoadingMiddle /> :
           <div className="overflow-x-auto w-full">
             <table className="table w-full text-sm md:text-base">
               <thead className="bg-gray-200 dark:bg-gray-800">

@@ -2,11 +2,11 @@ import React from 'react';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
-import Loading from '../../shared/Loading';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
 import { FaTrash } from 'react-icons/fa';
 import NoData from '../../shared/NoData';
+import LoadingMiddle from '../../shared/LoadingMiddle';
 
 const PendingBookings = () => {
     const secureAxios = useSecureAxios();
@@ -51,7 +51,7 @@ const PendingBookings = () => {
     return (
         <>
             {
-                isLoading ? <Loading /> :
+                isLoading ? <LoadingMiddle /> :
                     bookings.length === 0 ? <div className='space-y-2 mb-6 p-6 lg:py-20'>
                         <h2 className="text-3xl md:text-4xl font-extrabold">
                             Ready to Play? Check Your Pending Bookings!

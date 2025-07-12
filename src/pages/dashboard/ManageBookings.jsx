@@ -1,11 +1,11 @@
 import React from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import Loading from "../../shared/Loading";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import { FaTrash, FaCheck } from "react-icons/fa";
 import NoData from "../../shared/NoData";
+import LoadingMiddle from "../../shared/LoadingMiddle";
 
 const ManageBookings = () => {
     const secureAxios = useSecureAxios();
@@ -112,7 +112,7 @@ const ManageBookings = () => {
 
 
             {
-                isLoading ? <Loading /> :
+                isLoading ? <LoadingMiddle /> :
                     bookings.length === 0 ? (
                         <div className='space-y-2 mb-6 p-6 lg:py-20'>
                             <NoData />

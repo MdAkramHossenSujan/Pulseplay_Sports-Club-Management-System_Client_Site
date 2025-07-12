@@ -1,11 +1,11 @@
 import React, { useState, useMemo } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import useSecureAxios from '../../hooks/useSecureAxios';
-import Loading from '../../shared/Loading';
 import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 import Swal from 'sweetalert2';
 import { FaSearch, FaClock, FaBell } from 'react-icons/fa';
+import LoadingMiddle from '../../shared/LoadingMiddle';
 
 dayjs.extend(duration);
 
@@ -120,7 +120,7 @@ const ManageBookingConfirmed = () => {
             </div>
 
             {
-                isLoading ? <Loading /> : <div className="overflow-x-auto">
+                isLoading ? <LoadingMiddle /> : <div className="overflow-x-auto">
                     <table className="table w-full">
                         <thead>
                             <tr>

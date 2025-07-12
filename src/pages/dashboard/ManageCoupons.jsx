@@ -3,8 +3,8 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
-import Loading from "../../shared/Loading";
 import NoData from "../../shared/NoData";
+import LoadingMiddle from "../../shared/LoadingMiddle";
 
 const ManageCoupons = () => {
     const secureAxios = useSecureAxios();
@@ -108,8 +108,8 @@ const ManageCoupons = () => {
                 </button>
             </div>
 {/* If the data is loading then show the loading animation then Show the table */}
-            {isLoading ? <div className="flex justify-center items-center min-h-screen w-full">
-                <Loading />
+            {isLoading ? <div>
+                <LoadingMiddle />
             </div> : (
                 <div className="overflow-x-auto">
                     <table className="table w-full">
