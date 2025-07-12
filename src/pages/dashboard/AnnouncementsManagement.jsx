@@ -126,7 +126,7 @@ const AnnouncementsManagement = () => {
 
     return (
         <div className="p-6">
-            <div className="flex justify-between items-center mb-4">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center mb-4">
                 <h2 className="text-3xl font-extrabold">
                     Manage Announcements
                 </h2>
@@ -171,7 +171,7 @@ const AnnouncementsManagement = () => {
                                         </span>
                                     </td>
                                     <td>{dayjs(announcement.createdAt).format("MMM D, YYYY h:mm A")}</td>
-                                    <td className="flex gap-2">
+                                    <td className="flex gap-2 mt-18 md:mt-8 lg:mt-4">
                                         <button
                                             className="btn btn-xs btn-outline btn-primary"
                                             onClick={() => setEditingAnnouncement(announcement)}

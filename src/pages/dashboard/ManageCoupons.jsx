@@ -122,7 +122,7 @@ const ManageCoupons = () => {
     //Makes refetching and caching work properly
     return (
         <div className="p-6 lg:py-20">
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center mb-6">
                 <div>
                     <h2 className="text-3xl font-extrabold mb-4">
                         Manage Coupons

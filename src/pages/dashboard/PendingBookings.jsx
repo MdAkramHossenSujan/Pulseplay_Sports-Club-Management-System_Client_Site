@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
 import dayjs from 'dayjs';
 import Swal from 'sweetalert2';
-import { FaTrash } from 'react-icons/fa';
+import { FaMinusCircle } from 'react-icons/fa';
 import NoData from '../../shared/NoData';
 import Loading from '../../shared/Loading';
 
@@ -31,8 +31,8 @@ const PendingBookings = () => {
         onSuccess: () => {
             Swal.fire({
                 icon: 'success',
-                title: 'Booking Deleted',
-                text: 'Your booking has been successfully removed.',
+                title: 'Booking Cancelled',
+               text: 'Your booking has been successfully cancelled.',
             });
             queryClient.invalidateQueries(['pending-bookings']);
             refetch()
@@ -41,7 +41,7 @@ const PendingBookings = () => {
             Swal.fire({
                 icon: 'error',
                 title: 'Error',
-                text: 'Could not delete the booking. Please try again.',
+                text: 'Could not cancel the booking. Please try again.',
             });
         },
     });
@@ -144,7 +144,7 @@ const PendingBookings = () => {
                                                         onClick={() => {
                                                             Swal.fire({
                                                                 title: 'Are you sure?',
-                                                                text: `Do you want to delete your booking for ${booking.courtName}?`,
+                                                                text: `Do you want to cancel your booking for ${booking.courtName}?`,
                                                                 icon: 'warning',
                                                                 showCancelButton: true,
                                                                 confirmButtonColor: '#d33',
@@ -157,7 +157,7 @@ const PendingBookings = () => {
                                                             });
                                                         }}
                                                     >
-                                                        <FaTrash /> Delete
+                                                        <FaMinusCircle /> Cancel
                                                     </button>
                                                 </td>
                                             </tr>

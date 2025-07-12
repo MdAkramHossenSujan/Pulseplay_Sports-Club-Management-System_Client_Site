@@ -56,8 +56,7 @@ console.log(from)
         justify-center
         items-center
         relative
-        overflow-hidden
-      "
+        overflow-hidden"
       style={{
         backgroundImage: `url(${backgroundImage})`,
       }}

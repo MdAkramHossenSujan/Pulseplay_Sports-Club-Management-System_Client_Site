@@ -101,10 +101,10 @@ const MakeAdmin = () => {
             {/* User Data With Search */}
             {/* No search results */}
             {filteredUsers.length === 0 && searchTerm && (
-                <p className="text-center text-red-500 py-6 font-semibold">
+                <div className="text-center text-red-500 py-6 font-semibold">
                     <NoData/>
                     No users found matching “{searchTerm}”
-                </p>
+                </div>
             )}
 
             {/* No search typed yet */}
