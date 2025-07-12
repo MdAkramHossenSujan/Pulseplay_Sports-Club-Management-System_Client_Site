@@ -286,6 +286,7 @@ const AnnouncementsManagement = () => {
                     </div>
                 </div>
             )}
+            {/* Edit announcement modal by handleUpdateAnnouncement */}
             {editingAnnouncement && (
                 <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
                     <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-lg w-full max-w-lg">

@@ -11,6 +11,7 @@ const ManageCoupons = () => {
     const queryClient = useQueryClient();
 
     const [showModal, setShowModal] = useState(false);
+    const [editingCoupon, setEditingCoupon] = useState(null);
     const [newCoupon, setNewCoupon] = useState({
         couponName: "",
         couponValue: "",
@@ -55,6 +56,21 @@ const ManageCoupons = () => {
             Swal.fire("Error", "Could not delete coupon", "error");
         },
     });
+    //Update coupon by mutation
+    const updateMutation = useMutation({
+        mutationFn: async ({ id, updatedData }) => {
+            return secureAxios.put(`/coupons/${id}`, updatedData);
+        },
+        onSuccess: () => {
+            queryClient.invalidateQueries(["coupons"]);
+            Swal.fire("Updated!", "Coupon updated successfully.", "success");
+            setEditingCoupon(null);
+        },
+        onError: () => {
+            Swal.fire("Error", "Could not update coupon", "error");
+        },
+    });
+
     //Submitting and Clicking on addCoupon then this function calls a post request to the server by addMutation
     const handleAddCoupon = (e) => {
         e.preventDefault();
@@ -79,6 +95,27 @@ const ManageCoupons = () => {
             }
         });
     };
+    //Update coupon by handleUpdateCoupon
+    const handleUpdateCoupon = (e) => {
+        e.preventDefault();
+
+        if (
+            !editingCoupon.couponName ||
+            editingCoupon.couponValue === "" ||
+            isNaN(editingCoupon.couponValue)
+        ) {
+            return Swal.fire("Warning", "All fields are required", "warning");
+        }
+
+        updateMutation.mutate({
+            id: editingCoupon._id,
+            updatedData: {
+                couponName: editingCoupon.couponName,
+                couponValue: Number(editingCoupon.couponValue),
+            },
+        });
+    };
+
     // queryKey = name tag for your data.
     //Helps TanStack Query identify it
     //Keeps it separate from other queries
@@ -107,7 +144,7 @@ const ManageCoupons = () => {
                     <FaPlus /> Add Coupon
                 </button>
             </div>
-{/* If the data is loading then show the loading animation then Show the table */}
+            {/* If the data is loading then show the loading animation then Show the table */}
             {isLoading ? <div>
                 <LoadingMiddle />
             </div> : (
@@ -134,9 +171,7 @@ const ManageCoupons = () => {
                                     <td className="flex gap-2">
                                         <button
                                             className="btn btn-xs btn-outline btn-primary flex items-center gap-1"
-                                            onClick={() =>
-                                                Swal.fire("Edit", "Edit functionality to be implemented.", "info")
-                                            }
+                                            onClick={() => setEditingCoupon(coupon)}
                                         >
                                             <FaEdit /> Edit
                                         </button>
@@ -154,7 +189,7 @@ const ManageCoupons = () => {
                             {coupons.length === 0 && (
                                 <tr>
                                     <td colSpan={4} className="text-center text-gray-500 py-8">
-                                        <NoData/>
+                                        <NoData />
                                         You Have no coupons,Make some coupons to attract customers.
                                     </td>
                                 </tr>
@@ -217,6 +252,84 @@ const ManageCoupons = () => {
                     </div>
                 </div>
             )}
+            {/* Edit coupon modal by handleUpdateCoupon */}
+            {editingCoupon && (
+                <div className="fixed inset-0 flex justify-center items-center bg-black/50 z-50">
+                    <div className="bg-white dark:bg-gray-800 p-8 rounded shadow-lg w-full max-w-md">
+                        <h3 className="text-xl font-bold mb-4 text-green-600">
+                            Edit Coupon
+                        </h3>
+                        <form
+                            onSubmit={(e) => {
+                                e.preventDefault();
+                                if (!editingCoupon.couponName || !editingCoupon.couponValue) {
+                                    return Swal.fire("Warning", "All fields are required", "warning");
+                                }
+                                updateMutation.mutate({
+                                    id: editingCoupon._id,
+                                    updatedData: {
+                                        couponName: editingCoupon.couponName,
+                                        couponValue: parseInt(editingCoupon.couponValue),
+                                    },
+                                });
+                            }}
+                            className="space-y-4"
+                        >
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Coupon Name</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    value={editingCoupon.couponName}
+                                    onChange={(e) =>
+                                        setEditingCoupon({
+                                            ...editingCoupon,
+                                            couponName: e.target.value,
+                                        })
+                                    }
+                                    className="input input-bordered w-full"
+                                />
+                            </div>
+
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Coupon Value</span>
+                                </label>
+                                <input
+                                    type="number"
+                                    value={editingCoupon.couponValue}
+                                    onChange={(e) =>
+                                        setEditingCoupon({
+                                            ...editingCoupon,
+                                            couponValue: e.target.value,
+                                        })
+                                    }
+                                    className="input input-bordered w-full"
+                                />
+                            </div>
+
+                            <div className="flex justify-end gap-2">
+                                <button
+                                    type="button"
+                                    onClick={() => setEditingCoupon(null)}
+                                    className="btn btn-outline"
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="btn btn-success"
+                                    disabled={updateMutation.isLoading}
+                                >
+                                    {updateMutation.isLoading ? "Updating..." : "Update Coupon"}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 };
