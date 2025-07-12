@@ -72,11 +72,15 @@ const DashboardLayout = () => {
                                     alt="logo"
                                     className="w-12 h-12 border dark:border-green-600 rounded-full p-1"
                                 /></Link>
+                            <div >
                             <Link to={'/'}>
-                                <span className="text-3xl font-bold text-green-600">
+                                <span className="text-2xl font-bold text-green-600">
                                     PulsePlay
                                 </span>
-                            </Link>
+
+                            </Link><br />
+                            <p className='text-sm'><span className='uppercase font-semibold'>{role} </span>Dashboard</p>
+                            </div>
                         </div>
                     </div>
 
@@ -102,10 +106,15 @@ const DashboardLayout = () => {
                                     className="w-16 h-16 border dark:border-green-600 rounded-full p-1"
                                 />
                             </Link>
+                            <div >
                             <Link to={'/'}>
-                                <span className="text-4xl font-bold text-green-600">
+                                <span className="text-3xl font-bold text-green-600">
                                     PulsePlay
-                                </span></Link>
+                                </span>
+
+                            </Link><br />
+                            <span className='uppercase font-semibold'>{role} </span>Dashboard
+                            </div>
                         </div>
                         <hr className='border-dashed w-full' />
                         <nav className="menu p-4 space-y-4 text-gray-700 dark:text-gray-200">
