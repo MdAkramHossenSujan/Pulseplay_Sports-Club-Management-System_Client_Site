@@ -57,7 +57,7 @@ const ApprovedBookings = () => {
     }
 
     return (
-        <div className="p-6">
+        <div className="p-6 lg:py-20">
             <div className='space-y-2 mb-6'>
                 <h2 className="text-4xl font-extrabold">
                     Your Approved Bookings

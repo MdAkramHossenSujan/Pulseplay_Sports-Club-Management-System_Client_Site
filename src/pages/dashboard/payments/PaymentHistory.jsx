@@ -25,7 +25,7 @@ const PaymentHistory = () => {
   )
   const payments = data
   return (
-    <div className="md:p-6 p-4">
+    <div className="md:p-6 p-4 lg:py-20">
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
         <div>
           <h2 className="text-3xl md:text-4xl font-extrabold text-gray-500 mb-1">

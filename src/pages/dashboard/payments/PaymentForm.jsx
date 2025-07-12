@@ -34,6 +34,21 @@ const PaymentForm = () => {
         },
     });
 
+    const cardStyle = {
+        style: {
+          base: {
+            color: "#ffffff", // white text in dark mode
+            fontSize: "16px",
+            iconColor: "#a3e635", // optional, light green icons
+            "::placeholder": {
+              color: "#cbd5e1", // Tailwind slate-300
+            },
+          },
+          invalid: {
+            color: "#f87171", // Tailwind red-400
+          },
+        },
+      };
     const [couponCode, setCouponCode] = useState('');
     const [discountedPrice, setDiscountedPrice] = useState(null);
 
@@ -71,7 +86,7 @@ const PaymentForm = () => {
         if (!stripe || !elements) return;
         const card = elements.getElement(CardElement);
         if (!card) return;
-        const { error, paymentMethod } = await stripe.createPaymentMethod({
+        const { error } = await stripe.createPaymentMethod({
             type: 'card',
             card
         })
@@ -217,7 +232,7 @@ const PaymentForm = () => {
 
             {/* Stripe card field */}
             <div className="border p-3 rounded mt-3">
-                <CardElement />
+                <CardElement options={cardStyle}/>
             </div>
 
             <button

@@ -171,7 +171,7 @@ const ManageCoupons = () => {
                                     <td className="flex gap-2">
                                         <button
                                             className="btn btn-xs btn-outline btn-primary flex items-center gap-1"
-                                            onClick={() => setEditingCoupon(coupon)}
+                                            onClick={() => handleUpdateCoupon(coupon)}
                                         >
                                             <FaEdit /> Edit
                                         </button>

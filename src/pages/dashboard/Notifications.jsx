@@ -35,7 +35,7 @@ const Notifications = () => {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 max-w-5xl mx-auto lg:py-18">
       <h2 className="text-3xl font-bold text-gray-500 dark:text-green-700 mb-8 text-center">
        Your Notifications
       </h2>

@@ -5,6 +5,8 @@ import useAuth from '../../hooks/useAuth';
 import Loading from '../../shared/Loading';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
+import NoData from '../../shared/NoData';
+import { Link } from 'react-router';
 
 dayjs.extend(relativeTime);
 
@@ -28,7 +30,7 @@ const ConfirmedBookings = () => {
     }
     console.log(bookings)
     return (
-        <div className="p-6">
+        <div className="p-6 lg:py-20">
             <div className="mb-6 space-y-2">
                 <h2 className="text-4xl font-extrabold">
                     Confirmed Bookings
@@ -102,7 +104,9 @@ const ConfirmedBookings = () => {
                         {bookings.length === 0 && (
                             <tr>
                                 <td colSpan={6} className="text-center text-gray-400 py-10">
-                                    No confirmed bookings found.
+                                    <NoData/>
+                                    No confirmed bookings found.Request a booking first.
+                                    <Link to='/bookings' className='btn btn-outline'>Request a booking</Link>
                                 </td>
                             </tr>
                         )}
