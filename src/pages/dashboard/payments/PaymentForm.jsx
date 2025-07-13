@@ -37,7 +37,7 @@ const PaymentForm = () => {
     const cardStyle = {
         style: {
           base: {
-            color: "#ffffff", // white text in dark mode
+            color: "#000000", // white text in dark mode
             fontSize: "16px",
             iconColor: "#a3e635", // optional, light green icons
             "::placeholder": {

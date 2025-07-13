@@ -125,7 +125,7 @@ const AnnouncementsManagement = () => {
     };
 
     return (
-        <div className="p-6">
+        <div className="p-6 lg:py-20">
             <div className="flex flex-col lg:flex-row gap-4 lg:gap-0 justify-between items-center mb-4">
                 <h2 className="text-3xl font-extrabold">
                     Manage Announcements

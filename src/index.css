@@ -10,3 +10,22 @@
     @apply bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
   }
 }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Permanent+Marker&display=swap');
+.permanent-marker-regular {
+  font-family: "Permanent Marker", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+.exo-2-font {
+  font-family: "Exo 2",;
+  font-optical-sizing: auto;
+  font-weight:400;
+  font-style: normal;
+}
+@import url('https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap');
+.caveat-brush-regular {
+  font-family: "Caveat Brush", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
