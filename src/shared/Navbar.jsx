@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router";
+import { Link, NavLink } from "react-router";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import logo from '../assets/Logo/logo-transparent.png';
@@ -36,13 +36,15 @@ const Navbar = () => {
                         alt="logo"
                         className="w-12 h-12 border dark:border-green-600 rounded-full p-1"
                     />
+                    <Link to={'/'}>
                     <span className="text-3xl font-bold text-green-600">
                         PulsePlay
                     </span>
+                    </Link>
                 </div>
 
                 {/* Desktop Navigation */}
-                <nav className="hidden md:flex gap-8 items-center">
+                <nav className="hidden lg:flex gap-8 items-center">
                     {navLinks.map((link) => (
                         <NavLink
                             key={link.path}
@@ -175,7 +177,7 @@ const Navbar = () => {
 
                 {/* Hamburger */}
                 <button
-                    className="md:hidden btn btn-ghost btn-circle"
+                    className="lg:hidden btn btn-ghost btn-circle"
                     onClick={() => setOpen(true)}
                 >
                     <Menu size={24} />
@@ -201,7 +203,7 @@ const Navbar = () => {
                             animate={{ x: 0 }}
                             exit={{ x: "-100%" }}
                             transition={{ type: "tween", duration: 0.4 }}
-                            className="fixed top-0 left-0 h-full w-64 bg-base-100 z-50 p-6 flex flex-col gap-5"
+                            className="fixed top-0 left-0 h-full w-64 bg-base-100 z-100 p-6 flex flex-col gap-5"
                         >
                             <div className="flex justify-end">
                                 <button

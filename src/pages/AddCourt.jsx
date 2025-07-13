@@ -4,7 +4,6 @@ import Swal from "sweetalert2";
 import axios from "axios";
 import field from "../assets/field.jpg";
 import toast from "react-hot-toast";
-import useAxios from "../hooks/useAxios";
 import { useNavigate } from "react-router";
 import useSecureAxios from "../hooks/useSecureAxios";
 
@@ -44,6 +43,7 @@ const AddCourt = () => {
             courtName: data.name,
             courtType: data.type,
             slots: data.slots || [],
+            city: data.city,
             pricePerSession: data.price,
             courtImage: imageURL,
         };
@@ -54,6 +54,7 @@ const AddCourt = () => {
             html: `
         <p><strong>Name:</strong> ${courtData.courtName}</p>
         <p><strong>Type:</strong> ${courtData.courtType}</p>
+        <p><strong>City:</strong> ${courtData.city}</p>
         <p><strong>Slots:</strong> ${courtData.slots.join(", ")}</p>
         <p><strong>Price:</strong> $${courtData.pricePerSession}</p>
       `,
@@ -173,7 +174,14 @@ const AddCourt = () => {
                             </span>
                         )}
                     </div>
-
+                    
+                    {/*City */}
+                    <div className="form-control space-x-3">
+                        <label className="label">City</label>
+                        <input type="text" placeholder="Name of the city" {...register("city",
+                            {required:'City Location Is required'})} className="input input-bordered" />
+                    </div>
+                                
                     {/* Slot Times */}
                     <div className="form-control space-y-2">
                         <label className="label">

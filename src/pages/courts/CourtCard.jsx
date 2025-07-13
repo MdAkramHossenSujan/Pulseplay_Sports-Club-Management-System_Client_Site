@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router";
 import CourtBookingModal from "./CourtBookingModal";
-import { BadgePercent, Clock, BadgeCheck } from "lucide-react";
+import { Clock, BadgeCheck } from "lucide-react";
 import { motion } from "framer-motion";
 import useAuth from "../../hooks/useAuth";
 
@@ -17,7 +17,7 @@ const CourtCard = ({ court }) => {
         exit={{ opacity: 0, y: 50, scale: 0.95 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
         whileHover={{ scale: 1.02, boxShadow: "0 8px 24px rgba(0,0,0,0.15)" }}
-        className="bg-base-100 max-w-7xl h-76 mx-auto border border-gray-200 rounded-lg shadow overflow-hidden flex flex-col md:flex-row mb-8"
+        className="bg-base-100 max-w-7xl md:h-76 mx-auto border border-gray-200 rounded-lg shadow overflow-hidden flex flex-col md:flex-row mb-8"
       >
         {/* Left - Image */}
         <div className="md:w-1/2 w-full h-64 md:h-auto">
@@ -41,7 +41,10 @@ const CourtCard = ({ court }) => {
             >
               {court.courtName}
             </motion.h3>
-
+<div className="flex items-center gap-2">
+  <p className="font-semibold">Location:</p>
+  <p>{court.city}</p>
+</div>
             <div className="flex flex-wrap gap-2">
               <span className="badge badge-success gap-1">
                 <BadgeCheck size={16} /> Available
@@ -55,7 +58,7 @@ const CourtCard = ({ court }) => {
             </div>
 
             <div className="flex items-center gap-2 mt-2 text-gray-600 dark:text-gray-300">
-              <Clock className="mb-6 md:mb-0" size={18} />
+              <Clock className="mb-6 lg:mb-0" size={18} />
               <span>
                 Slots:&nbsp;
                 {court.slots.slice(0, 3).join(", ")}

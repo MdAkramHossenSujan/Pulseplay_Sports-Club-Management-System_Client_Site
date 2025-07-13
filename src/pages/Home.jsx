@@ -1,6 +1,7 @@
 import React from 'react';
 import Banner from '../components/Banner';
 import AboutClub from '../components/Aboutme';
+import CourtMapImage from '../components/CourtMap';
 
 const Home = () => {
     return (
@@ -11,6 +12,9 @@ const Home = () => {
            <div>
             <AboutClub/>
            
+           </div>
+           <div>
+            <CourtMapImage/>
            </div>
         </div>
     );

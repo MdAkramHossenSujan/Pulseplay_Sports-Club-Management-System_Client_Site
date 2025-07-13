@@ -32,6 +32,7 @@ import Profile from "../pages/dashboard/Profile";
 import UserAnnouncements from "../pages/dashboard/UserAnnouncements";
 import UserRoute from "./UserRoute";
 import MemberAnnouncements from "../pages/dashboard/MemberAnnouncements";
+import MapPage from "../pages/MapPage";
 
 export const router = createBrowserRouter([
   {
@@ -56,8 +57,12 @@ export const router = createBrowserRouter([
         Component: Courts
       },
       {
-        path:'/forbidden',
-        Component:Forbidden
+        path: 'findInMap',
+        Component: MapPage
+      },
+      {
+        path: '/forbidden',
+        Component: Forbidden
       }
     ]
   },
@@ -66,107 +71,107 @@ export const router = createBrowserRouter([
     element: <PrivateRoute>
       <DashboardLayout />
     </PrivateRoute>,
-    children:[
+    children: [
       {
-        index:true,
-        path:'/dashboard',
-        Component:DashboardHome
+        index: true,
+        path: '/dashboard',
+        Component: DashboardHome
       },
       {
-        path:'makeadmin',
-        element:<AdminRoute>
-          <MakeAdmin/>
+        path: 'makeadmin',
+        element: <AdminRoute>
+          <MakeAdmin />
         </AdminRoute>
       },
       {
-        path:'payment/:id',
-        Component:Payment
+        path: 'payment/:id',
+        Component: Payment
       },
       {
-path:'profile',
-Component:Profile
+        path: 'profile',
+        Component: Profile
       },
       {
-        path:'pendingBookings',
-       element:<MemberAndUserRoute>
-        <PendingBookings/>
-       </MemberAndUserRoute>
+        path: 'pendingBookings',
+        element: <MemberAndUserRoute>
+          <PendingBookings />
+        </MemberAndUserRoute>
       },
       {
-        path:'manageBooking',
-       element:<AdminRoute>
-        <ManageBookings/>
-       </AdminRoute>
-      },
-      {
-        path:'addcourt',
-        element:<AdminRoute>
-          <AddCourt/>
+        path: 'manageBooking',
+        element: <AdminRoute>
+          <ManageBookings />
         </AdminRoute>
-      },{
-        path:'notifications',
-        element:<MemberRoute>
-          <Notifications/>
+      },
+      {
+        path: 'addcourt',
+        element: <AdminRoute>
+          <AddCourt />
+        </AdminRoute>
+      }, {
+        path: 'notifications',
+        element: <MemberRoute>
+          <Notifications />
         </MemberRoute>
       },
       {
-        path:'approvedBookings',
-        element:<MemberRoute>
-          <ApprovedBookings/>
+        path: 'approvedBookings',
+        element: <MemberRoute>
+          <ApprovedBookings />
         </MemberRoute>
       },
       {
-        path:'paymentHistory',
-        element:<MemberRoute>
-          <PaymentHistory/>
+        path: 'paymentHistory',
+        element: <MemberRoute>
+          <PaymentHistory />
         </MemberRoute>
       },
       {
-        path:'manageBookingConfirmed',
-        element:<AdminRoute>
-          <ManageBookingConfirmed/>
+        path: 'manageBookingConfirmed',
+        element: <AdminRoute>
+          <ManageBookingConfirmed />
         </AdminRoute>
       },
       {
-        path:'confirmedBookings',
-        element:<MemberRoute>
-          <ConfirmedBookings/>
+        path: 'confirmedBookings',
+        element: <MemberRoute>
+          <ConfirmedBookings />
         </MemberRoute>
       },
       {
-        path:'courts',
-        element:<AdminRoute>
-          <AdminCourts/>
+        path: 'courts',
+        element: <AdminRoute>
+          <AdminCourts />
         </AdminRoute>
       },
       {
-        path:'updateCourt/:id',
-        element:<AdminRoute>
-          <UpdateCourt/>
+        path: 'updateCourt/:id',
+        element: <AdminRoute>
+          <UpdateCourt />
         </AdminRoute>
       },
       {
-        path:'manageCoupons',
-        element:<AdminRoute>
-          <ManageCoupons/>
+        path: 'manageCoupons',
+        element: <AdminRoute>
+          <ManageCoupons />
         </AdminRoute>
       },
       {
-        path:'manageAnnounces',
-        element:<AdminRoute>
-          <AnnouncementsManagement/>
+        path: 'manageAnnounces',
+        element: <AdminRoute>
+          <AnnouncementsManagement />
         </AdminRoute>
       },
       {
-        path:'announcements',
-        element:<UserRoute>
-          <UserAnnouncements/>
+        path: 'announcements',
+        element: <UserRoute>
+          <UserAnnouncements />
         </UserRoute>
       },
       {
-        path:'memberAnnouncements',
-        element:<MemberRoute>
-          <MemberAnnouncements/>
+        path: 'memberAnnouncements',
+        element: <MemberRoute>
+          <MemberAnnouncements />
         </MemberRoute>
       }
     ]

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   HiOutlineMail,
-  HiOutlineLockClosed,
   HiEye,
   HiEyeOff,
 } from "react-icons/hi";
