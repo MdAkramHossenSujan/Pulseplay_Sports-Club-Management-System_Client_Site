@@ -9,10 +9,12 @@ import Theme from "./Theme";
 
 const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Courts", path: "/courts" },
+    { name: "Reserve-Court", path: "/courts" },
     { name: "About", path: "/about" },
+    { name: "Find", path: "/findInMap" },
     { name: "Contact", path: "/contact" },
-    { name: "Add Court", path: "/dashboard/addcourt" }
+    { name: "Membership", path: "/membership" },
+    { name: "Gallery", path: "/gallery" },
 ];
 
 const Navbar = () => {

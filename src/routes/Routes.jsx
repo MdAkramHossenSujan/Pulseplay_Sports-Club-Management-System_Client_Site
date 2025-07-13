@@ -33,6 +33,8 @@ import UserAnnouncements from "../pages/dashboard/UserAnnouncements";
 import UserRoute from "./UserRoute";
 import MemberAnnouncements from "../pages/dashboard/MemberAnnouncements";
 import MapPage from "../pages/MapPage";
+import Gallery from "../pages/Gallery";
+import Membership from "../pages/Membership";
 
 export const router = createBrowserRouter([
   {
@@ -57,12 +59,20 @@ export const router = createBrowserRouter([
         Component: Courts
       },
       {
-        path: 'findInMap',
+        path: '/findInMap',
         Component: MapPage
       },
       {
         path: '/forbidden',
         Component: Forbidden
+      },
+      {
+        path: '/gallery',
+        Component: Gallery
+      },
+      {
+        path: '/membership',
+        Component: Membership
       }
     ]
   },
