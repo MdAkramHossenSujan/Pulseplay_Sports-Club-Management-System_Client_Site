@@ -130,22 +130,22 @@ const MapPage = () => {
                 </div>
 
                 {/* Filtered List */}
-                <div className="flex-1 space-y-4 max-h-[400px] overflow-y-auto">
+                <div className="flex-1 space-y-4 max-h-[600px] overflow-y-auto">
                     {courts.length > 0 && (
                         <div>
-                            <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mb-4">
+                            <h2 className="text-xl font-semibold text-gray-700 dark:text-gray-200 mb-4">
                                 Courts {searchType ? "available" : "found"} now:
                             </h2>
                             {courts.map((court) => (
                                 <div
                                     key={court._id}
-                                    className="p-4 border rounded-lg shadow-sm dark:border-gray-700 dark:bg-gray-800"
+                                    className="p-4 border rounded-lg shadow-sm mb-2 border-gray-500 dark:border-green-600 "
                                 >
                                     <div className="flex gap-4">
                                         <img
                                             src={court.courtImage}
                                             alt={court.courtName}
-                                            className="w-24 h-16 object-cover rounded"
+                                            className="w-24 h-16 object-cover ring-2 ring-gray-600 dark:ring-gray-700 rounded"
                                         />
                                         <div className="flex flex-col justify-between">
                                             <h3 className="text-lg font-bold text-gray-800 dark:text-gray-100">
