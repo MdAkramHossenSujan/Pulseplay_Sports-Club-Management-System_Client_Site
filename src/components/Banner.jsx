@@ -50,13 +50,13 @@ const Banner = () => {
         
         {/* LEFT SIDE */}
         <div
-          className="w-full lg:w-[60%] flex flex-col justify-center text-center lg:text-left p-8 mb-12 lg:mb-0"
+          className="w-full lg:w-[60%] flex flex-col justify-center text-center lg:text-left p-2 md:p-8 mb-12 lg:mb-0"
           data-aos="fade-right"
           data-aos-duration="1000"
           data-aos-delay="200"
         >
           <h1
-            className="text-4xl md:text-5xl caveat-brush-regular font-extrabold text-gray-100 mb-6 leading-tight"
+            className="text-4xl md:text-5xl md:caveat-brush-regular font-bold exo-2-font md:font-extrabold text-gray-100 mb-6 leading-tight"
             data-aos="fade-down"
             data-aos-delay="500"
           >
@@ -68,7 +68,7 @@ const Banner = () => {
             data-aos="fade-up"
             data-aos-delay="400"
           >
-            From premium courts to thrilling activities — join a club where passion meets performance.
+            From premium courts to thrilling activities, join a club where passion meets performance.
             Book your session today and bring your best game forward!
           </p>
 

@@ -8,11 +8,12 @@ import {
   UserPlus,
   BadgePercent,
 } from "lucide-react";
-import { motion, useAnimation } from "framer-motion";
-import { useEffect } from "react";
+import { motion } from "framer-motion";
 import Loading from "../shared/Loading";
+
 const RoleFeatures = () => {
-  const { role,isLoading } = useUserData();
+  const { role, isLoading } = useUserData();
+
   const featuresByRole = {
     user: [
       {
@@ -83,29 +84,25 @@ const RoleFeatures = () => {
   };
 
   const features = featuresByRole[role] || [];
-  if(isLoading){
-    return <Loading/>
-}
-  // Icon animation variants
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  // New single-entry animation for icons (no infinite repeat)
   const iconAnimation = {
-    animate: {
-      // subtle glowing scale + color pulse
-      scale: [1, 1.15, 1],
-      filter: [
-        "drop-shadow(0 0 5px rgba(255,255,255,0.6))",
-        "drop-shadow(0 0 20px rgba(255,255,255,1))",
-        "drop-shadow(0 0 5px rgba(255,255,255,0.6))",
-      ],
-      transition: {
-        duration: 3,
-        repeat: Infinity,
-        ease: "easeInOut",
-      },
+    initial: { scale: 0.8, opacity: 0 },
+    whileInView: {
+      scale: 1,
+      opacity: 1,
+      filter: "drop-shadow(0 0 5px rgba(255,255,255,0.6))",
+      transition: { duration: 0.6, ease: "easeOut" },
     },
+    viewport: { once: true },
   };
 
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
+    <section className="py-10 lg:py-14 px-4 md:px-8 max-w-7xl mx-auto">
       <motion.h2
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -135,20 +132,18 @@ const RoleFeatures = () => {
             }}
             className="border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow hover:shadow-xl transition"
           >
-            <div className="mb-4">
-              {/* Animate icon ONLY in dark mode */}
-              <motion.div
-                className="inline-block text-gray-800 dark:text-white"
-                variants={iconAnimation}
-                animate={typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches ? "animate" : ""}
-              >
-                <Icon size={36} />
-              </motion.div>
-            </div>
+            <motion.div
+              {...iconAnimation}
+              className="inline-block text-gray-800 dark:text-white mb-4"
+            >
+              <Icon size={36} />
+            </motion.div>
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">{desc}</p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">
+              {desc}
+            </p>
           </motion.div>
         ))}
       </motion.div>
@@ -157,5 +152,7 @@ const RoleFeatures = () => {
 };
 
 export default RoleFeatures;
+
+
 
 

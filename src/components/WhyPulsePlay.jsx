@@ -47,8 +47,8 @@ const WhyPulsePlay = () => {
     ];
 
     return (
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-6 max-w-7xl mx-auto px-6">
-            <section className="py-16 flex-1 px-4">
+        <div className="flex flex-col lg:flex-row gap-14 md:gap-24 lg:gap-6 max-w-7xl mx-auto px-6 py-12">
+            <section className="flex-1 px-4">
                 <div className="max-w-5xl mx-auto">
                     <h2 className="text-3xl md:text-4xl font-extrabold text-gray-700 dark:text-gray-200 mb-8">
                         Why Choose PulsePlay
@@ -86,7 +86,7 @@ const WhyPulsePlay = () => {
                         key={image.id}
                         className={`
               relative
-              w-36 h-36
+              w-32 h-32
               sm:w-48 sm:h-48
               md:w-72 md:h-72
               xl:w-96 xl:h-96

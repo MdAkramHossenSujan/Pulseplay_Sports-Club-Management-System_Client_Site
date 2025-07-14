@@ -8,7 +8,7 @@ const CourtMapImage = () => {
 
     return (
         <div
-            className="max-w-[1200px] mx-auto px-6 md:px-10 py-10 space-y-10"
+            className="max-w-[1200px] mx-auto px-6 md:px-10 pb-6 space-y-10"
             data-aos="fade-up"
         >
             {/* Divider + Title */}
