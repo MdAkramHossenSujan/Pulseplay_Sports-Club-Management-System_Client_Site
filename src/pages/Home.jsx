@@ -3,6 +3,8 @@ import Banner from '../components/Banner';
 import AboutClub from '../components/Aboutme';
 import CourtMapImage from '../components/CourtMap';
 import PopularGames from '../components/PopularGames';
+import HowPulsePlayWorks from '../components/HowPulsePlayWorks';
+import WhyPulsePlay from '../components/WhyPulsePlay';
 
 const Home = () => {
     return (
@@ -15,10 +17,16 @@ const Home = () => {
            
            </div>
            <div>
+            <HowPulsePlayWorks/>
+           </div>
+           <div>
             <CourtMapImage/>
            </div>
            <div>
             <PopularGames/>
+           </div>
+           <div>
+            <WhyPulsePlay/>
            </div>
         </div>
     );

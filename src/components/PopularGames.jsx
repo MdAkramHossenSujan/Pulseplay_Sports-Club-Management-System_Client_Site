@@ -70,7 +70,7 @@ const PopularGames = () => {
                     {filteredCourts.map((court, index) => (
                         <div
                             key={court._id}
-                            className="rounded-lg w-full overflow-hidden shadow border border-gray-300 dark:border-gray-700 hover:shadow-lg transition"
+                            className="rounded-lg w-full overflow-hidden shadow border border-gray-300 dark:border-gray-700 hover:shadow-lg dark:shadow-gray-800 transition"
                             data-aos="fade-up"
                             data-aos-delay={index * 50}
                         >
