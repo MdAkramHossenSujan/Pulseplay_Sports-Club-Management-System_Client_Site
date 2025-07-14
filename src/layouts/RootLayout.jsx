@@ -1,15 +1,18 @@
 import React, { Suspense } from 'react';
 import Navbar from '../shared/Navbar';
-import { Outlet } from 'react-router';
+import { Outlet, useLocation } from 'react-router';
 import Footer from '../shared/Footer';
 import Loading from '../shared/Loading';
+import NavbarHome from '../shared/NavbarHome';
 
 const RootLayout = () => {
-
+const location = useLocation();
     return (
         <div>
-            <Navbar/>
-           <div className='min-h-screen pt-18'>
+            {
+                location.pathname === '/' ? <NavbarHome/> : <Navbar/>
+            }
+            <div className={`min-h-screen ${location.pathname === '/' ? '' : 'pt-18'}`}>
            <Suspense fallback={
             <Loading/>
            }>

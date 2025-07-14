@@ -47,7 +47,7 @@ const Banner = () => {
 
       {/* Content */}
       <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-[1400px] px-6 py-12">
-        
+
         {/* LEFT SIDE */}
         <div
           className="w-full lg:w-[60%] flex flex-col justify-center text-center lg:text-left p-2 md:p-8 mb-12 lg:mb-0"
@@ -98,7 +98,8 @@ const Banner = () => {
             grabCursor={true}
             modules={[EffectCards, Autoplay]}
             autoplay={{ delay: 3000, disableOnInteraction: false }}
-            loop={true}
+            loop={images.length >= 3}
+            slidesPerView={1}
             className="w-72 h-72 md:w-96 md:h-96"
           >
             {images.map((src, index) => (
