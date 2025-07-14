@@ -7,6 +7,19 @@ import { courtsData } from "../components/CourtsData";
 import { FaSearch } from "react-icons/fa";
 import Loading from "../shared/Loading";
 
+import L from "leaflet";
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
+
+delete L.Icon.Default.prototype._getIconUrl;
+
+L.Icon.Default.mergeOptions({
+  iconRetinaUrl: markerIcon2x,
+  iconUrl: markerIcon,
+  shadowUrl: markerShadow,
+});
+
 const MapPage = () => {
     const axiosInstance = useAxios();
     const [courtType, setCourtType] = useState("");
@@ -112,11 +125,7 @@ const MapPage = () => {
                                 {filteredCourts.map((court) => (
                                     <Marker key={court._id} position={[court.lat, court.lng]}>
                                         <Popup>
-                                            <img
-                                                className="mb-2 w-40 h-24 object-cover rounded"
-                                                src={court.courtImage}
-                                                alt={court.courtName}
-                                            />
+                                            <img src={court.courtImage} alt="" />
                                             <strong>{court.courtName}</strong>
                                             <br />
                                             Type: {court.courtType}

@@ -56,7 +56,7 @@ const Banner = () => {
           data-aos-delay="200"
         >
           <h1
-            className="text-4xl md:text-5xl md:caveat-brush-regular font-bold exo-2-font md:font-extrabold text-gray-100 mb-6 leading-tight"
+            className="text-4xl md:text-5xl pt-12 md:pt-0 md:caveat-brush-regular font-bold exo-2-font md:font-extrabold text-gray-100 mb-6 leading-tight"
             data-aos="fade-down"
             data-aos-delay="500"
           >

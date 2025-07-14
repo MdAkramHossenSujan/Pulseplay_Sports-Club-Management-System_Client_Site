@@ -274,7 +274,7 @@ const NavbarHome = () => {
                                     className={({ isActive }) =>
                                         `text-lg font-medium transition-colors duration-300 ${isActive
                                             ? "text-green-600"
-                                            : `${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"} hover:text-green-300`
+                                            : `text-gray-700 dark:text-gray-300 hover:text-green-300`
                                         }`
                                     }
                                     onClick={() => setOpen(false)}
