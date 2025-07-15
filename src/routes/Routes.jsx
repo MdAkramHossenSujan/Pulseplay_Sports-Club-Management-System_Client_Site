@@ -35,6 +35,8 @@ import MemberAnnouncements from "../pages/dashboard/MemberAnnouncements";
 import MapPage from "../pages/MapPage";
 import Gallery from "../pages/Gallery";
 import Membership from "../pages/Membership";
+import UserManagement from "../pages/dashboard/Usermanagement";
+import MemberManagement from "../pages/dashboard/MemberManagement";
 
 export const router = createBrowserRouter([
   {
@@ -183,6 +185,18 @@ export const router = createBrowserRouter([
         element: <MemberRoute>
           <MemberAnnouncements />
         </MemberRoute>
+      },
+      {
+        path: 'manageUsers',
+        element: <AdminRoute>
+          <UserManagement />
+        </AdminRoute>
+      },
+      {
+        path:'manageMembers',
+        element:<AdminRoute>
+          <MemberManagement/>
+        </AdminRoute>
       }
     ]
   }
