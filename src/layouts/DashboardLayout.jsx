@@ -268,7 +268,7 @@ const DashboardLayout = () => {
                                                     }`
                                                 }
                                             >
-                                                <ListCheck className='md:mb-6.5' />Manage Confirmed Bookings
+                                                <ListCheck className='md:mb-6.5 w-4 md:w-6' />Manage Confirmed Bookings
                                             </NavLink>
                                         </li>
                                         <li>
@@ -294,7 +294,7 @@ const DashboardLayout = () => {
                                                     }`
                                                 }
                                             >
-                                                <LayoutGrid />Courts Managements
+                                                <LayoutGrid className='w-4 md:w-6'/>Courts Managements
                                             </NavLink>
                                         </li>
                                         <li>
@@ -320,7 +320,7 @@ const DashboardLayout = () => {
                                                     }`
                                                 }
                                             >
-                                                <Megaphone />Manage Announcement
+                                                <Megaphone className='w-4 md:w-6'/>Manage Announcement
                                             </NavLink>
                                         </li>
                                         <li>
@@ -346,7 +346,7 @@ const DashboardLayout = () => {
                                                     }`
                                                 }
                                             >
-                                                <UserCog />Manage Members
+                                                <UserCog className='w-4 md:w-6'/>Manage Members
                                             </NavLink>
                                         </li>
                                         <li>

@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { FaMinusCircle } from 'react-icons/fa';
 import NoData from '../../shared/NoData';
 import Loading from '../../shared/Loading';
+import { Link } from 'react-router';
 
 const PendingBookings = () => {
     const secureAxios = useSecureAxios();
@@ -62,8 +63,12 @@ const PendingBookings = () => {
                             Thank you for waiting patiently.
                         </p>
                         <NoData />
+                        <p className='text-center text-gray-600 dark:text-gray-300'>You have no bookings.Wanna book a court??</p>
+                       <div className='flex justify-center py-2'>
+                       <Link to='/courts' className='btn btn-outline dark:text-green-600 text-gray-600'>Book a court</Link>
+                       </div>
                     </div> :
-                        <div className="p-6">
+                        <div className="p-6 lg:py-18">
                             <div className='space-y-2 mb-6'>
                                 <h2 className="text-3xl md:text-4xl font-extrabold">
                                     Ready to Play? Check Your Pending Bookings!

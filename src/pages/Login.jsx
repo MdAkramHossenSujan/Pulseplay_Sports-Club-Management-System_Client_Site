@@ -29,7 +29,6 @@ const Login = () => {
 const location = useLocation()
 const navigate = useNavigate()
 const from = location.state?.from || '/';
-console.log(from)
   const onSubmit = (data) => {
     signInUser(data.email, data.password)
       .then(async () => {

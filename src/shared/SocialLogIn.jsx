@@ -10,7 +10,8 @@ const SocialLogIn = () => {
     const location = useLocation()
     const navigate = useNavigate()
     const axiosInstance = useAxios()
-    const from = location.state?.from || '/'
+    const from = location.state?.from;
+console.log(from)
     const handleGoogleSignIn = () => {
         signInWithGoogle().then(async (result) => {
             const user = result.user
@@ -28,8 +29,7 @@ const SocialLogIn = () => {
                 last_logged_in: new Date().toISOString(),
                 email: user.email
               })
-            console.log(userResponse.data)
-            navigate(from)
+            navigate(from || '/');
         }).catch(error => {
             console.log(error)
         })

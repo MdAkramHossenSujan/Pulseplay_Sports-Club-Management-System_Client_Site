@@ -270,14 +270,14 @@ const Navbar = () => {
                                     <NavLink
                                         to="/login"
                                         onClick={() => setOpen(false)}
-                                        className="text-gray-700 dark:text-gray-300 hover:text-primary font-medium"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-green-400 font-medium"
                                     >
                                         Login
                                     </NavLink>
                                     <NavLink
                                         to="/register"
                                         onClick={() => setOpen(false)}
-                                        className="text-gray-700 dark:text-gray-300 hover:text-primary font-medium"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-green-400 font-medium"
                                     >
                                         Register
                                     </NavLink>

@@ -1,5 +1,5 @@
 import React from 'react';
-import image from '../assets/Animation/Animation - 1751980631636_no_data.json'
+import image from '../assets/Animation/Empty State.json'
 import Lottie from 'lottie-react';
 const NoData = () => {
     return (

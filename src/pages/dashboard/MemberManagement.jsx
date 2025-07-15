@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useSecureAxios from '../../hooks/useSecureAxios';
-import useAuth from '../../hooks/useAuth';
 import { X, Search } from 'lucide-react';
 import Swal from 'sweetalert2';
 import LoadingMiddle from '../../shared/LoadingMiddle';
@@ -9,7 +8,6 @@ import LoadingMiddle from '../../shared/LoadingMiddle';
 const MemberManagement = () => {
   const secureAxios = useSecureAxios();
   const queryClient = useQueryClient();
-  const { user } = useAuth();
   const [search, setSearch] = useState("");
 
   // Fetch all members once
@@ -76,7 +74,7 @@ const MemberManagement = () => {
         );
 
   return (
-    <div className="max-w-7xl mx-auto p-6 lg:py-18">
+    <div className="mx-auto p-6 lg:py-18">
       <h2 className="text-4xl font-bold mb-2 text-gray-800 dark:text-gray-100">
         Member Management
       </h2>

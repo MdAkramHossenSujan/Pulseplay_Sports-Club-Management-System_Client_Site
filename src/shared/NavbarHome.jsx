@@ -69,9 +69,9 @@ const NavbarHome = () => {
                             key={link.path}
                             to={link.path}
                             className={({ isActive }) =>
-                                `relative font-medium pb-1 transition-colors duration-300 ${isActive
+                                `relative font-medium pb-1 hover:text-green-400 transition-colors duration-300 ${isActive
                                     ? "text-green-600"
-                                    : `${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"} hover:text-green-300`
+                                    : `${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"} `
                                 }`
                             }
                         >
@@ -178,13 +178,13 @@ const NavbarHome = () => {
                         <>
                             <NavLink
                                 to="/login"
-                                className={` hover:text-primary font-medium ${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"}`}
+                                className={` hover:text-green-800 font-medium ${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"}`}
                             >
                                 Login
                             </NavLink>
                             <NavLink
                                 to="/register"
-                                className={` hover:text-primary font-medium ${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"}`}
+                                className={` hover:text-green-800 font-medium ${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"}`}
                             >
                                 Register
                             </NavLink>
@@ -196,7 +196,7 @@ const NavbarHome = () => {
 
                 {/* Hamburger */}
                 <button
-                    className={`lg:hidden btn btn-ghost btn-circle ${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"}`}
+                    className={`lg:hidden btn hover:bg-gray-900 btn-ghost btn-circle ${scrolledHalf ? "text-gray-700 dark:text-gray-300" : "text-white"}`}
                     onClick={() => setOpen(true)}
                 >
                     <Menu size={24} />
@@ -272,9 +272,9 @@ const NavbarHome = () => {
                                     key={link.path}
                                     to={link.path}
                                     className={({ isActive }) =>
-                                        `text-lg font-medium transition-colors duration-300 ${isActive
+                                        `text-lg font-medium transition-colors hover:text-green-800 duration-300 ${isActive
                                             ? "text-green-600"
-                                            : `text-gray-700 dark:text-gray-300 hover:text-green-300`
+                                            : `text-gray-700 dark:text-gray-300`
                                         }`
                                     }
                                     onClick={() => setOpen(false)}
@@ -287,14 +287,14 @@ const NavbarHome = () => {
                                     <NavLink
                                         to="/login"
                                         onClick={() => setOpen(false)}
-                                        className="text-gray-700 dark:text-gray-300 hover:text-primary font-medium"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-green-800 font-medium"
                                     >
                                         Login
                                     </NavLink>
                                     <NavLink
                                         to="/register"
                                         onClick={() => setOpen(false)}
-                                        className="text-gray-700 dark:text-gray-300 hover:text-primary font-medium"
+                                        className="text-gray-700 dark:text-gray-300 hover:text-green-800 font-medium"
                                     >
                                         Register
                                     </NavLink>
