@@ -4,6 +4,7 @@ import useSecureAxios from '../../hooks/useSecureAxios';
 import useAuth from '../../hooks/useAuth';
 import { X, Search } from 'lucide-react';
 import Swal from 'sweetalert2';
+import LoadingMiddle from '../../shared/LoadingMiddle';
 
 const MemberManagement = () => {
   const secureAxios = useSecureAxios();
@@ -11,14 +12,13 @@ const MemberManagement = () => {
   const { user } = useAuth();
   const [search, setSearch] = useState("");
 
-  // Fetch members
+  // Fetch all members once
   const { data: members = [], isLoading } = useQuery({
-    queryKey: ['members', search],
+    queryKey: ['members'],
     queryFn: async () => {
       const res = await secureAxios.get('/users/member', {
         params: {
-          role: 'member',
-          name: search || undefined
+          role: 'member'
         }
       });
       return res.data;
@@ -67,9 +67,17 @@ const MemberManagement = () => {
     });
   };
 
+  // Client-side filtering
+  const filteredMembers =
+    search.trim() === ""
+      ? members
+      : members.filter(member =>
+          member.name?.toLowerCase().includes(search.toLowerCase())
+        );
+
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-3xl font-bold mb-8 text-gray-800 dark:text-gray-100">
+    <div className="max-w-7xl mx-auto p-6 lg:py-18">
+      <h2 className="text-4xl font-bold mb-2 text-gray-800 dark:text-gray-100">
         Member Management
       </h2>
 
@@ -86,17 +94,11 @@ const MemberManagement = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="border border-gray-300 dark:border-gray-700 rounded px-4 py-2 w-full md:w-80 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200"
         />
-        <button
-          onClick={() => queryClient.invalidateQueries(['members'])}
-          className="bg-green-600 text-white p-2 rounded hover:bg-green-700"
-        >
-          <Search size={20} />
-        </button>
       </div>
 
       {/* Members Table */}
       {isLoading ? (
-        <p className="text-gray-600 dark:text-gray-300">Loading members...</p>
+        <LoadingMiddle/>
       ) : (
         <div className="overflow-x-auto">
           <table className="min-w-full text-sm text-gray-700 dark:text-gray-200">
@@ -109,7 +111,7 @@ const MemberManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {members.map((member) => (
+              {filteredMembers.map((member) => (
                 <tr key={member._id} className="border-b dark:border-gray-600">
                   <td className="px-4 py-3">
                     <img
@@ -131,10 +133,10 @@ const MemberManagement = () => {
                   </td>
                 </tr>
               ))}
-              {members.length === 0 && (
+              {filteredMembers.length === 0 && (
                 <tr>
                   <td colSpan="4" className="px-4 py-4 text-center text-gray-500 dark:text-gray-400">
-                    No members found.
+                    No members found matching your search.
                   </td>
                 </tr>
               )}
@@ -147,4 +149,5 @@ const MemberManagement = () => {
 };
 
 export default MemberManagement;
+
 
