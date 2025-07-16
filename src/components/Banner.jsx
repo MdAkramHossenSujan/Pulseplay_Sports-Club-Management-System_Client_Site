@@ -13,6 +13,7 @@ import slider5 from '../assets/StackSlider/pexels-vladimirsrajber-25287801.jpg';
 import slider6 from '../assets/StackSlider/tt-1724328661096.webp';
 import useAuth from '../hooks/useAuth';
 import { Plus, Info } from "lucide-react";
+import { Link } from 'react-router';
 
 const Banner = () => {
   const { theme } = useAuth();
@@ -77,12 +78,15 @@ const Banner = () => {
             data-aos="fade-up"
             data-aos-delay="600"
           >
+            <Link to={'/courts'}>
             <button className="flex items-center justify-center gap-2 px-6 py-3 cursor-pointer text-green-400 hover:text-white border border-green-600 font-semibold rounded hover:bg-green-700 transition duration-300">
               <Plus size={18} /> Book Now
-            </button>
+            </button></Link>
+            <Link to={'/about'}>
             <button className="flex items-center justify-center gap-2 px-6 py-3 cursor-pointer border border-gray-300 text-gray-100 hover:bg-gray-200 hover:text-gray-800 font-semibold rounded transition duration-300">
               <Info size={18} /> Learn More
             </button>
+            </Link>
           </div>
         </div>
 
