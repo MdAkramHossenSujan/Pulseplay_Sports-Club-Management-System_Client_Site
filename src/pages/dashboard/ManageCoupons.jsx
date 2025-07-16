@@ -25,7 +25,6 @@ const ManageCoupons = () => {
             return res.data;
         },
     });
-
     // ADD coupon,And refetch the coupons by using invalidQueries (Stored By the name ['coupons'])
     const addMutation = useMutation({
         mutationFn: async (couponData) => {
@@ -97,11 +96,10 @@ const ManageCoupons = () => {
     };
     //Update coupon by handleUpdateCoupon
     const handleUpdateCoupon = (e) => {
-        e.preventDefault();
-
+        e.preventDefault()
         if (
-            !editingCoupon.couponName ||
-            editingCoupon.couponValue === "" ||
+            !editingCoupon?.couponName ||
+            editingCoupon?.couponValue === "" ||
             isNaN(editingCoupon.couponValue)
         ) {
             return Swal.fire("Warning", "All fields are required", "warning");
@@ -171,7 +169,7 @@ const ManageCoupons = () => {
                                     <td className="flex gap-2">
                                         <button
                                             className="btn btn-xs btn-outline btn-primary flex items-center gap-1"
-                                            onClick={() => handleUpdateCoupon(coupon)}
+                                            onClick={() => setEditingCoupon(coupon)}
                                         >
                                             <FaEdit /> Edit
                                         </button>

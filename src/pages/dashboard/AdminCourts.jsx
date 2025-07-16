@@ -1,28 +1,28 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router';
-import useAxios from '../../hooks/useAxios';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import ReactPaginate from 'react-paginate';
 import LoadingMiddle from '../../shared/LoadingMiddle';
+import useSecureAxios from '../../hooks/useSecureAxios';
 
 const AdminCourts = () => {
-  const axiosInstance = useAxios();
+  const secureAxios=useSecureAxios()
   const queryClient = useQueryClient();
   const navigate = useNavigate();
 
   const { data: Courts = [], isLoading } = useQuery({
     queryKey: ['courts'],
     queryFn: async () => {
-      const res = await axiosInstance.get('/courts');
+      const res = await secureAxios.get('/courts');
       return res.data;
     },
   });
 
   const deleteMutation = useMutation({
     mutationFn: async (id) => {
-      return axiosInstance.delete(`/courts/${id}`);
+      return secureAxios.delete(`/courts/${id}`);
     },
     onSuccess: () => {
       Swal.fire({

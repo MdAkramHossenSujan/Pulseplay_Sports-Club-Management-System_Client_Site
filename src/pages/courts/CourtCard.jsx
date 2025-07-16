@@ -7,8 +7,8 @@ import useAuth from "../../hooks/useAuth";
 
 const CourtCard = ({ court }) => {
   const [modalOpen, setModalOpen] = useState(false);
-  const {user}=useAuth()
-  const navigate=useNavigate()
+  const { user } = useAuth()
+  const navigate = useNavigate()
   return (
     <>
       <motion.div
@@ -41,10 +41,10 @@ const CourtCard = ({ court }) => {
             >
               {court.courtName}
             </motion.h3>
-<div className="flex items-center gap-2">
-  <p className="font-semibold">Location:</p>
-  <p>{court.city}</p>
-</div>
+            <div className="flex items-center gap-2">
+              <p className="font-semibold">Location:</p>
+              <p>{court.city}</p>
+            </div>
             <div className="flex flex-wrap gap-2">
               <span className="badge badge-success gap-1">
                 <BadgeCheck size={16} /> Available
@@ -54,7 +54,7 @@ const CourtCard = ({ court }) => {
                 {court.courtType}
               </span>
 
-             
+
             </div>
 
             <div className="flex items-center gap-2 mt-2 text-gray-600 dark:text-gray-300">
@@ -75,7 +75,14 @@ const CourtCard = ({ court }) => {
           <div className="mt-6 flex gap-3">
             <motion.button
               whileTap={{ scale: 0.95 }}
-              onClick={() => setModalOpen(true)}
+              onClick={() => {
+                if (user) {
+                  setModalOpen(true);
+                } else {
+                  navigate('/login');
+                }
+              }}
+
               className="btn bg-green-600 hover:bg-green-700 text-white w-full md:w-auto"
             >
               Book Now
@@ -85,15 +92,13 @@ const CourtCard = ({ court }) => {
       </motion.div>
 
       {/* Modal */}
-     {
-      user ?
+
       <CourtBookingModal
         court={court}
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}
       />
-      : navigate('/login')
-     }
+
     </>
   );
 };

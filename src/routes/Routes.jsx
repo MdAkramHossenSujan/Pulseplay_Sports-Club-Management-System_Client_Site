@@ -37,11 +37,14 @@ import Gallery from "../pages/Gallery";
 import Membership from "../pages/Membership";
 import UserManagement from "../pages/dashboard/Usermanagement";
 import MemberManagement from "../pages/dashboard/MemberManagement";
+import ErrorPage from "../pages/ErrorPage";
+import About from "../pages/About";
 
 export const router = createBrowserRouter([
   {
     path: "/",
     Component: RootLayout,
+    errorElement:<ErrorPage/>,
     children: [
       {
         index: true,
@@ -75,6 +78,10 @@ export const router = createBrowserRouter([
       {
         path: '/membership',
         Component: Membership
+      },
+      {
+        path: '/about',
+        Component: About
       }
     ]
   },

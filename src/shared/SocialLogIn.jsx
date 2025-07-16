@@ -11,7 +11,6 @@ const SocialLogIn = () => {
     const navigate = useNavigate()
     const axiosInstance = useAxios()
     const from = location.state?.from;
-console.log(from)
     const handleGoogleSignIn = () => {
         signInWithGoogle().then(async (result) => {
             const user = result.user
@@ -24,7 +23,7 @@ console.log(from)
                 role:'user',
                 last_logged_in:new Date().toISOString()
             }
-            const userResponse = await axiosInstance.post('/users', userData);
+            await axiosInstance.post('/users', userData);
             await axiosInstance.patch('/users', {
                 last_logged_in: new Date().toISOString(),
                 email: user.email

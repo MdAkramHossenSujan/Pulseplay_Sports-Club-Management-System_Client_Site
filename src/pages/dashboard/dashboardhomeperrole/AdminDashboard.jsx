@@ -24,14 +24,13 @@ const AdminDashboard = () => {
     queryFn: () =>
       axios.get('/dashboard/admin-stats').then((res) => res.data),
   });
-
   if (isLoading) return <Loading/>;
 
   // Helper to extract count by status
   const getCount = (status) =>
     stats.bookingStats?.find((s) => s._id === status)?.count || 0;
 
-  const totalCourts = stats.totalCourts ?? 0;
+  const totalCourts = stats?.totalCourts ?? 0;
   const availableCourts = stats.availableCourts ?? 0;
   const pending = getCount('pending');
   const approved = getCount('approved');

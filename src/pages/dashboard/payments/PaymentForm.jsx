@@ -7,10 +7,12 @@ import { useElements, useStripe, CardElement } from '@stripe/react-stripe-js';
 import Swal from 'sweetalert2';
 import cardImage from '../../../assets/credit-card-online-payments-overview.jpg'
 import dayjs from 'dayjs';
+import useAuth from '../../../hooks/useAuth';
 const PaymentForm = () => {
     const { id } = useParams();
     const stripe = useStripe();
     const elements = useElements();
+    const {theme}=useAuth()
     const secureAxios = useSecureAxios();
     const navigate=useNavigate()
     // Fetch booking details
@@ -24,7 +26,7 @@ const PaymentForm = () => {
             return res.data;
         },
     });
-
+console.log(booking)
     // Fetch coupons
     const { data: coupons = [], isLoading: couponsLoading } = useQuery({
         queryKey: ['coupon'],
@@ -33,11 +35,12 @@ const PaymentForm = () => {
             return res.data;
         },
     });
-
+    //To control form text color
+const color = theme==='dark'?'#ffffff':'#000000'
     const cardStyle = {
         style: {
           base: {
-            color: "#000000", // white text in dark mode
+            color: color, // white text in dark mode
             fontSize: "16px",
             iconColor: "#a3e635", // optional, light green icons
             "::placeholder": {
@@ -86,91 +89,134 @@ const PaymentForm = () => {
         if (!stripe || !elements) return;
         const card = elements.getElement(CardElement);
         if (!card) return;
-        const { error } = await stripe.createPaymentMethod({
-            type: 'card',
-            card
-        })
-        if (error) {
-            Swal.fire('Payment Failed', error.message, 'error')
-        }
-        try {
-            // 1. Create PaymentIntent on server
-            const { data } = await secureAxios.post(
-                '/create-payment-intent',
-                {
-                    amount: Math.round((discountedPrice || initialTotalPrice) * 100),
-                }
-            );
-            const clientSecret = data.clientSecret
-            Swal.fire({
-                title: 'Processing Payment...',
-                html: 'Please wait while we complete your payment.',
-                allowOutsideClick: false,
-                didOpen: () => {
-                  Swal.showLoading();
-                }
-              });
-            // 2. Confirm Card Payment
-
-            const paymentResult = await stripe.confirmCardPayment(clientSecret, {
-                payment_method: {
-                    card,
-                    billing_details: {
-                        email: booking.bookedBy,
-                    },
-                },
-            });
-
-            if (paymentResult.error) {
-                Swal.fire('Payment Failed', paymentResult.error.message, 'error');
-            } else {
-                if (paymentResult.paymentIntent.status === 'succeeded') {
-                    const bill = {
-                        paidBy:booking.bookedBy,
-                        bookingId: booking._id,
-                        transactionId: paymentResult.paymentIntent.id,
-                        amount: discountedPrice || initialTotalPrice,
-                        email: booking.bookedBy,
-                        date: new Date(),
-                    }
-                    await secureAxios.post('/payments',bill)
-                    await secureAxios.patch(`/bookings/${booking._id}/paymentStatus`,{payment_status:'paid'})
-                    await secureAxios.patch(`/bookings/${booking._id}`,{status:'confirmed'})
-                    await secureAxios.post('/notifications', {
-                        userEmail: booking.bookedBy,
-                        title: 'Payment Successful!',
-                        message: `Your payment for ${booking.courtName} on ${dayjs(booking.date).format('MMM DD, YYYY')} has been successful.`,
-                        read:false,
-                        status:'paid',
-                        paidAt:new Date()
-                      });
-                    console.log(bill)
-                    Swal.close();
-                    Swal.fire({
-                        title: 'Payment Successful',
-                        html: `
-                          <div style="text-align: left;">
-                            <p><strong>Amount Paid:</strong> $ ${bill.amount / 100}</p>
-                            <p><strong>Transaction ID:</strong> ${bill.transactionId}</p>
-                            <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
-                          </div>
-                        `,
-                        icon: 'success',
-                        confirmButtonColor: '#16A34A',
-                      });
-                      navigate('/dashboard/approvedBookings')
-                      
-                }
+      
+        // prepare booking details
+        const bookingDetailsHtml = `
+          <div style="text-align: left;">
+            <img src="${booking.courtImage}" style="width: 100%; border-radius: 6px; margin-bottom: 10px" />
+            <p><strong>Court:</strong> ${booking.courtName} (${booking.courtType})</p>
+            <p><strong>Date:</strong> ${dayjs(booking.date).format('MMM DD, YYYY')}</p>
+            <p><strong>Slots:</strong> ${booking.slots.join(', ')}</p>
+            <p><strong>Price per Session:</strong> $${Number(booking.pricePerSession).toFixed(2)}</p>
+            <p><strong>Total Price:</strong> $${Number(booking.totalPrice).toFixed(2)}</p>
+            ${
+              discountedPrice
+                ? `<p style="color: green;"><strong>Discounted Total:</strong> $${Number(discountedPrice).toFixed(2)}</p>`
+                : ''
             }
-        } catch (error) {
-            console.error(error);
-            Swal.close();
-            Swal.fire('Error', 'Something went wrong during payment.', 'error');
+          </div>
+        `;
+      
+        // show booking details for confirmation
+        const result = await Swal.fire({
+          title: 'Confirm Your Booking',
+          html: bookingDetailsHtml,
+          showCancelButton: true,
+          confirmButtonText: 'Proceed to Payment',
+          cancelButtonText: 'Cancel',
+          confirmButtonColor: '#16A34A',
+          width: 600,
+        });
+      
+        if (!result.isConfirmed) {
+          Swal.fire('Cancelled', 'Payment was not processed.', 'info');
+          return;
         }
-    };
+      
+        // create payment method
+        const { error } = await stripe.createPaymentMethod({
+          type: 'card',
+          card,
+        });
+      
+        if (error) {
+          Swal.fire('Payment Failed', error.message, 'error');
+          return;
+        }
+      
+        try {
+          // 1. Create PaymentIntent on server
+          const { data } = await secureAxios.post(
+            '/create-payment-intent',
+            {
+              amount: Math.round((discountedPrice || initialTotalPrice) * 100),
+            }
+          );
+          const clientSecret = data.clientSecret;
+      
+          Swal.fire({
+            title: 'Processing Payment...',
+            html: 'Please wait while we complete your payment.',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            },
+          });
+      
+          // 2. Confirm Card Payment
+          const paymentResult = await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card,
+              billing_details: {
+                email: booking.bookedBy,
+              },
+            },
+          });
+      
+          if (paymentResult.error) {
+            Swal.close();
+            Swal.fire('Payment Failed', paymentResult.error.message, 'error');
+          } else {
+            if (paymentResult.paymentIntent.status === 'succeeded') {
+              const bill = {
+                paidBy: booking.bookedBy,
+                bookingId: booking._id,
+                transactionId: paymentResult.paymentIntent.id,
+                amount: discountedPrice || initialTotalPrice,
+                email: booking.bookedBy,
+                date: new Date(),
+              };
+      
+              await secureAxios.post('/payments', bill);
+              await secureAxios.patch(`/bookings/${booking._id}/paymentStatus`, { payment_status: 'paid' });
+              await secureAxios.patch(`/bookings/${booking._id}`, { status: 'confirmed' });
+              await secureAxios.post('/notifications', {
+                userEmail: booking.bookedBy,
+                title: 'Payment Successful!',
+                message: `Your payment for ${booking.courtName} on ${dayjs(booking.date).format('MMM DD, YYYY')} has been successful.`,
+                read: false,
+                status: 'paid',
+                paidAt: new Date(),
+              });
+      
+              Swal.close();
+      
+              Swal.fire({
+                title: 'Payment Successful',
+                html: `
+                  <div style="text-align: left;">
+                    <p><strong>Amount Paid:</strong> $${(bill.amount).toFixed(2)}</p>
+                    <p><strong>Transaction ID:</strong> ${bill.transactionId}</p>
+                    <p><strong>Date:</strong> ${new Date().toLocaleDateString()}</p>
+                  </div>
+                `,
+                icon: 'success',
+                confirmButtonColor: '#16A34A',
+              });
+      
+              navigate('/dashboard/approvedBookings');
+            }
+          }
+        } catch (error) {
+          console.error(error);
+          Swal.close();
+          Swal.fire('Error', 'Something went wrong during payment.', 'error');
+        }
+      };
+      
 
     return (
-        <div className="max-w-xl mx-auto p-6 bg-base-100 shadow rounded space-y-4">
+        <div className="max-w-2xl mx-auto p-6 bg-base-100 shadow rounded space-y-4">
             <div>
                 <img className='rounded-2xl' src={cardImage} alt="" />
             </div>

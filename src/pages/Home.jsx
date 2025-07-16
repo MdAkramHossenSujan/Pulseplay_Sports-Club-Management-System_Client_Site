@@ -5,6 +5,7 @@ import CourtMapImage from '../components/CourtMap';
 import PopularGames from '../components/PopularGames';
 import HowPulsePlayWorks from '../components/HowPulsePlayWorks';
 import WhyPulsePlay from '../components/WhyPulsePlay';
+import Coupons from '../components/Coupons';
 
 const Home = () => {
     return (
@@ -27,6 +28,9 @@ const Home = () => {
            </div>
            <div>
             <WhyPulsePlay/>
+           </div>
+           <div>
+            <Coupons/>
            </div>
         </div>
     );

@@ -2,12 +2,11 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import { X } from "lucide-react";
-import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
-import Loading from "../../shared/Loading";
+import useSecureAxios from "../../hooks/useSecureAxios";
 
 const CourtBookingModal = ({ court, isOpen, onClose }) => {
-    const axiosInstance = useAxios();
+    const secureAxios=useSecureAxios()
 const {user}=useAuth()
     //React hook form
     const {
@@ -19,7 +18,6 @@ const {user}=useAuth()
     } = useForm();
 
     const selectedSlots = watch("slots") || [];
-    const couponCode = watch("coupon") || "";
     const pricePerSession = parseFloat(court.pricePerSession);
     const subtotal = pricePerSession * selectedSlots.length;
 
@@ -59,10 +57,8 @@ const {user}=useAuth()
         }).then(async (result) => {
             if (result.isConfirmed) {
                 // Booking is confirmed
-                console.log("Booking data:", bookingData);
                 // Booking Data to backend using axios 
-                const res = await axiosInstance.post('/bookings', bookingData)
-                console.log(res.data)
+                const res = await secureAxios.post('/bookings', bookingData)
                 if (res.data.inserted) {
                     Swal.fire({
                         icon: "success",

@@ -35,7 +35,7 @@ const RoleFeatures = () => {
         icon: ShieldCheck,
         title: "Real-Time Slot Navigation",
         desc: "Easily view and manage upcoming bookings, cancellations, and timing — all from your dashboard.",
-      }
+      },
     ],
     member: [
       {
@@ -57,7 +57,7 @@ const RoleFeatures = () => {
         icon: ShieldCheck,
         title: "Manage Schedules Effortlessly",
         desc: "Get automated reminders and insights into your playing habits to better manage your time.",
-      }
+      },
     ],
     admin: [
       {
@@ -83,7 +83,28 @@ const RoleFeatures = () => {
     ],
   };
 
-  const features = featuresByRole[role] || [];
+  const defaultFeatures = [
+    {
+      icon: MapPin,
+      title: "Find Nearby Courts",
+      desc: "Locate sports courts in your vicinity using real-time map services integrated into PulsePlay.",
+    },
+    {
+      icon: UserPlus,
+      title: "See Gallery",
+      desc: "Browse photos and highlights of sports courts and events to get inspired before booking.",
+    },
+    {
+      icon: CalendarDays,
+      title: "Book Slots Instantly",
+      desc: "Choose from available time slots and secure your court bookings instantly with just a few clicks.",
+    },
+    {
+      icon: CreditCard,
+      title: "Make Secure Payments",
+      desc: "Pay for your sessions using trusted payment gateways, ensuring quick and secure transactions.",
+    },
+  ];
 
   if (isLoading) {
     return <Loading />;
@@ -101,6 +122,9 @@ const RoleFeatures = () => {
     viewport: { once: true },
   };
 
+  // Use features based on role or default if unknown
+  const features = featuresByRole[role] || defaultFeatures;
+
   return (
     <section className="py-10 lg:py-14 px-4 md:px-8 max-w-7xl mx-auto">
       <motion.h2
@@ -112,6 +136,13 @@ const RoleFeatures = () => {
       >
         How You’ll Access PulsePlay
       </motion.h2>
+
+      {/* Show message for unknown roles */}
+      {!["user", "member", "admin"].includes(role) && (
+        <p className="text-center text-gray-600 dark:text-gray-300 mb-8">
+          You currently have limited access. Here’s what you can do:
+        </p>
+      )}
 
       <motion.div
         variants={{
@@ -141,9 +172,7 @@ const RoleFeatures = () => {
             <h3 className="text-xl font-bold text-gray-800 dark:text-white mb-2">
               {title}
             </h3>
-            <p className="text-gray-600 dark:text-gray-300 text-sm">
-              {desc}
-            </p>
+            <p className="text-gray-600 dark:text-gray-300 text-sm">{desc}</p>
           </motion.div>
         ))}
       </motion.div>
@@ -152,6 +181,7 @@ const RoleFeatures = () => {
 };
 
 export default RoleFeatures;
+
 
 
 
