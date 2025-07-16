@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import useSecureAxios from "../../hooks/useSecureAxios";
@@ -9,7 +9,10 @@ import LoadingMiddle from "../../shared/LoadingMiddle";
 const ManageCoupons = () => {
     const secureAxios = useSecureAxios();
     const queryClient = useQueryClient();
-
+    useEffect(() => {
+        document.title = `Manage Coupons | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const [showModal, setShowModal] = useState(false);
     const [editingCoupon, setEditingCoupon] = useState(null);
     const [newCoupon, setNewCoupon] = useState({
@@ -319,6 +322,7 @@ const ManageCoupons = () => {
                                     type="submit"
                                     className="btn btn-success"
                                     disabled={updateMutation.isLoading}
+                                    onClick={handleUpdateCoupon}
                                 >
                                     {updateMutation.isLoading ? "Updating..." : "Update Coupon"}
                                 </button>

@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useRouteError } from 'react-router';
 import Lottie from 'lottie-react';
 import errorAnimation from '../assets/Animation/Lonely 404.json';
 
 const ErrorPage = () => {
     const error=useRouteError()
+    useEffect(() => {
+        document.title = `Error | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 dark:bg-gray-900 px-4">
       <div className="w-full max-w-md mx-auto">

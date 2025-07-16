@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import { FaEdit, FaTrash } from 'react-icons/fa';
@@ -11,7 +11,10 @@ const AdminCourts = () => {
   const secureAxios=useSecureAxios()
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-
+  useEffect(() => {
+    document.title = `Manage Courts | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const { data: Courts = [], isLoading } = useQuery({
     queryKey: ['courts'],
     queryFn: async () => {

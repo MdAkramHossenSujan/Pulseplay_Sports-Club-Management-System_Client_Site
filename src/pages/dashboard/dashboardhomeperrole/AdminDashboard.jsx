@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
   PieChart,
@@ -18,7 +18,10 @@ const COLORS = ['#4ade80', '#facc15', '#60a5fa', '#f87171', '#a78bfa', '#fb923c'
 
 const AdminDashboard = () => {
   const axios = useSecureAxios();
-
+  useEffect(() => {
+    document.title = `Admin Dashboard | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const { data: stats, isLoading } = useQuery({
     queryKey: ['adminDashboard'],
     queryFn: () =>

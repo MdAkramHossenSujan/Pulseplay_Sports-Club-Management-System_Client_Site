@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
@@ -14,7 +14,10 @@ const ApprovedBookings = () => {
     const { user } = useAuth();
     const queryClient = useQueryClient();
     const navigate = useNavigate();
-
+    useEffect(() => {
+        document.title = `Approved Bookings | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     // Fetch approved bookings
     const { data: bookings = [], isLoading, refetch } = useQuery({
         queryKey: ['approved-bookings'],

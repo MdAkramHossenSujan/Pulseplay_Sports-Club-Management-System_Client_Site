@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { Pie } from "react-chartjs-2";
@@ -12,7 +12,10 @@ Chart.register(ArcElement, Tooltip, Legend);
 const UserDashboardHome = () => {
     const { userData } = useUserData();
     const secureAxios = useSecureAxios();
-
+    useEffect(() => {
+        document.title = `User Dashboard | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const userEmail = userData?.email;
 
     // Load all bookings for this user

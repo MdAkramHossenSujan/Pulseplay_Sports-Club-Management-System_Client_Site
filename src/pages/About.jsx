@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaRegCheckCircle } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
@@ -42,6 +42,10 @@ const features = [
 ];
 
 const About = () => {
+  useEffect(() => {
+    document.title = `About | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   return (
     <div className="bg-white dark:bg-base-200 py-16 px-6 lg:px-20">
       <div className="text-center mb-12">

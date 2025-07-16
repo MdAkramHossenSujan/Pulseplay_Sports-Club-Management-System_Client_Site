@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import Swal from "sweetalert2";
@@ -10,7 +10,10 @@ import LoadingMiddle from "../../shared/LoadingMiddle";
 const MakeAdmin = () => {
     const secureAxios = useSecureAxios();
     const queryClient = useQueryClient();
-
+    useEffect(() => {
+        document.title = `Make Admin | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     // State for search
     const [searchTerm, setSearchTerm] = useState("");
     // Load users

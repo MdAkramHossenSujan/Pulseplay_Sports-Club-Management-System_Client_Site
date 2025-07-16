@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Lottie from 'lottie-react';
 import forbidden from '../assets/Animation/forbidden403.json';
 import { Link } from 'react-router';
 
 const Forbidden = () => {
+  useEffect(() => {
+    document.title = `Forbidden | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 dark:bg-gray-900 px-4 text-center">
       <div className="w-full max-w-md">

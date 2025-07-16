@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
@@ -13,7 +13,10 @@ const PendingBookings = () => {
     const secureAxios = useSecureAxios();
     const { user } = useAuth();
     const queryClient = useQueryClient();
-
+    useEffect(() => {
+        document.title = `Pending Bookings | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const { data: bookings = [], isLoading, refetch } = useQuery({
         queryKey: ['pending-bookings'],
         queryFn: async () => {

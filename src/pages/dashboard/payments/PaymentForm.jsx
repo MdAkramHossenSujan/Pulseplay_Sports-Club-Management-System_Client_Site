@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router';
 import useSecureAxios from '../../../hooks/useSecureAxios';
 import { useQuery } from '@tanstack/react-query';
@@ -15,6 +15,10 @@ const PaymentForm = () => {
     const {theme}=useAuth()
     const secureAxios = useSecureAxios();
     const navigate=useNavigate()
+    useEffect(() => {
+        document.title = `Payment | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     // Fetch booking details
     const {
         data: booking,

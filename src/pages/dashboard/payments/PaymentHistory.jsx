@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaTh, FaTable } from "react-icons/fa";
 import { BsCashCoin } from "react-icons/bs";
 import TableView from "./paymentview/TableView";
@@ -12,6 +12,10 @@ const PaymentHistory = () => {
   const [isTableView, setIsTableView] = useState(true);
   const { user } = useAuth()
   const secureAxios = useSecureAxios()
+  useEffect(() => {
+    document.title = `Payment History | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const { data, isLoading } = useQuery(
     {
       queryKey: ['payments'],

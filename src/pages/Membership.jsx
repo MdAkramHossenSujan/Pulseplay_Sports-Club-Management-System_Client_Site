@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaCheckCircle, FaArrowRight } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -38,6 +38,10 @@ const containerVariants = {
 };
 
 const Membership = () => {
+  useEffect(() => {
+    document.title = `Membership | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   return (
     <div className="max-w-7xl mx-auto px-6 py-16">
       <h1 className="text-4xl font-bold text-green-600 text-center mb-12">

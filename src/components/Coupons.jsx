@@ -32,7 +32,7 @@ const Coupons = () => {
   }
 
   return (
-    <section className="py-16 bg-gray-50 dark:bg-gray-900">
+    <section className="py-16">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-800 dark:text-green-400 mb-10">
           Exclusive Coupons & Deals

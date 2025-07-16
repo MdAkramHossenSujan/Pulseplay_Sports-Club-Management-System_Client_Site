@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../components/Banner';
 import AboutClub from '../components/Aboutme';
 import CourtMapImage from '../components/CourtMap';
@@ -8,6 +8,10 @@ import WhyPulsePlay from '../components/WhyPulsePlay';
 import Coupons from '../components/Coupons';
 
 const Home = () => {
+    useEffect(() => {
+        document.title = `Home | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     return (
         <div>
            <div>

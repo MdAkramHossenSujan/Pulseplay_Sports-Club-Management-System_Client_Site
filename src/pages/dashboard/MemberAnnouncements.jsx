@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import dayjs from "dayjs";
@@ -8,7 +8,10 @@ import { FaBullhorn } from "react-icons/fa";
 
 const MemberAnnouncements = () => {
   const secureAxios = useSecureAxios();
-
+  useEffect(() => {
+    document.title = `Announcements | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   // Fetch announcements
   const { data: announcements = [], isLoading } = useQuery({
     queryKey: ["announcements"],

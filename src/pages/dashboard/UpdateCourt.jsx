@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -15,6 +15,10 @@ const UpdateCourt = () => {
   const navigate = useNavigate();
   const [imageURL, setImageURL] = useState("");
   const [uploading, setUploading] = useState(false);
+  useEffect(() => {
+    document.title = `Update Court | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const { data, isLoading } = useQuery({
     queryKey: ['court', id],
     queryFn: async () => {

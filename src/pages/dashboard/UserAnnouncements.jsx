@@ -1,12 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
+import React, { useEffect } from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import { format } from "date-fns";
 import { FaBullhorn } from "react-icons/fa";
 
 const UserAnnouncements = () => {
     const secureAxios = useSecureAxios();
-
+    useEffect(() => {
+        document.title = `Announcements | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const { data: announcements = [], isLoading } = useQuery({
         queryKey: ["announcements"],
         queryFn: async () => {

@@ -10,7 +10,10 @@ import Loading from '../../shared/Loading';
 
 const Courts = () => {
   const axiosInstance = useAxios();
-
+  useEffect(() => {
+    document.title = `Courts | PulsePlay`;
+    window.scrollTo(0, 0);
+  }, []);
   const { data: courts = [], isLoading } = useQuery({
     queryKey: ['courts'],
     queryFn: async () => {

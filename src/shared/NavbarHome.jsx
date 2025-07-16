@@ -12,7 +12,6 @@ const navLinks = [
     { name: "Reserve-Court", path: "/courts" },
     { name: "About", path: "/about" },
     { name: "Find", path: "/findInMap" },
-    { name: "Contact", path: "/contact" },
     { name: "Membership", path: "/membership" },
     { name: "Gallery", path: "/gallery" },
 ];

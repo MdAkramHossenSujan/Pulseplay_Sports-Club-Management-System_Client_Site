@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import Loading from "../../shared/Loading";
 import ReactPaginate from "react-paginate";
@@ -7,6 +7,10 @@ import NoData from "../../shared/NoData";
 
 const UserManagement = () => {
     const secureAxios = useSecureAxios();
+    useEffect(() => {
+        document.title = `User Management | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     //Get data from usersCollection through tanstack query
     const { data: users = [], isLoading } = useQuery({
         queryKey: ["users"],

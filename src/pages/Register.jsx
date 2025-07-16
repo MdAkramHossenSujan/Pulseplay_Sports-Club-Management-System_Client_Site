@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { HiOutlineMail, HiOutlineLockClosed, HiEye, HiEyeOff, HiUser } from "react-icons/hi";
 import useAuth from "../hooks/useAuth";
@@ -17,6 +17,10 @@ const Register = () => {
     const backgroundImage = theme === "dark" ? dark : light;
     //Navigation Logic
     const location=useLocation()
+    useEffect(() => {
+        document.title = `Register | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const navigate=useNavigate()
     const from=location.state?.from || '/'
     //React Hook form to extract data from the form

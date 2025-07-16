@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   HiOutlineMail,
@@ -15,6 +15,10 @@ import SocialLogIn from "../shared/SocialLogIn";
 import useAxios from "../hooks/useAxios";
 
 const Login = () => {
+  useEffect(() => {
+    document.title = `Login | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const { theme, signInUser } = useAuth();
   const axiosInstance = useAxios()
   const backgroundImage = theme === "dark" ? dark : light;

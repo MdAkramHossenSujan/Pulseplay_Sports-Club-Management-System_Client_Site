@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import {
     PieChart,
@@ -19,7 +19,10 @@ import Loading from '../../../shared/Loading';
 const MemberDashboard = () => {
     const secureAxios = useSecureAxios();
     const { user } = useAuth();
-
+    useEffect(() => {
+        document.title = `Member Dashboard | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const { data: stats = [], isLoading: loadingStats } = useQuery({
         queryKey: ['bookingStats', user?.email],
         enabled: !!user?.email,

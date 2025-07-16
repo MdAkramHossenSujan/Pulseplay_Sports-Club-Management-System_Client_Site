@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import useAuth from '../../hooks/useAuth';
@@ -10,7 +10,10 @@ import NoData from '../../shared/NoData';
 const Notifications = () => {
   const secureAxios = useSecureAxios();
   const { user } = useAuth();
-
+  useEffect(() => {
+    document.title = `Notifications | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const { data: notifications = [], isLoading, isError } = useQuery({
     queryKey: ['notifications'],
     queryFn: async () => {

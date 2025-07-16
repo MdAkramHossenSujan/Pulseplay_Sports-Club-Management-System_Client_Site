@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -9,7 +9,10 @@ import LoadingMiddle from "../../shared/LoadingMiddle";
 
 const ManageBookings = () => {
     const secureAxios = useSecureAxios();
-
+    useEffect(() => {
+        document.title = `Manage Bookings | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     // Fetch all bookings
     const { data: bookings = [], isLoading, refetch } = useQuery({
         queryKey: ["bookings"],

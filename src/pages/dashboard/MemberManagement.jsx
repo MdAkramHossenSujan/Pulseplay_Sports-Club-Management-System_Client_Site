@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import { X, Search } from 'lucide-react';
@@ -9,7 +9,10 @@ const MemberManagement = () => {
   const secureAxios = useSecureAxios();
   const queryClient = useQueryClient();
   const [search, setSearch] = useState("");
-
+  useEffect(() => {
+    document.title = `Member Management | Dashboard | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   // Fetch all members once
   const { data: members = [], isLoading } = useQuery({
     queryKey: ['members'],

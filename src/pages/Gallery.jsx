@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import { courtsData } from '../components/CourtsData';
 
 const Gallery = () => {
+  useEffect(() => {
+    document.title = `Gallery | PulsePlay`; 
+    window.scrollTo(0, 0); 
+  }, []);
   const itemsPerPage = 20;
   const [currentPage, setCurrentPage] = useState(0);
   const [modalImage, setModalImage] = useState(null);

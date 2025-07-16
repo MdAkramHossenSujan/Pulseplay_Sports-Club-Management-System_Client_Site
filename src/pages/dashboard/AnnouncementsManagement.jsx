@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useSecureAxios from "../../hooks/useSecureAxios";
 import Swal from "sweetalert2";
@@ -10,7 +10,10 @@ import NoData from "../../shared/NoData";
 const AnnouncementsManagement = () => {
     const secureAxios = useSecureAxios();
     const queryClient = useQueryClient();
-
+    useEffect(() => {
+        document.title = `Manage Announcements | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const [showModal, setShowModal] = useState(false);
     const [newAnnouncement, setNewAnnouncement] = useState({
         title: "",

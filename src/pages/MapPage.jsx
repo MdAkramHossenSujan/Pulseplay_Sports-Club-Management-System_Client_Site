@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { useQuery } from "@tanstack/react-query";
 import "leaflet/dist/leaflet.css";
@@ -21,6 +21,10 @@ L.Icon.Default.mergeOptions({
 });
 
 const MapPage = () => {
+    useEffect(() => {
+        document.title = `Map | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const axiosInstance = useAxios();
     const [courtType, setCourtType] = useState("");
     const [searchType, setSearchType] = useState("");

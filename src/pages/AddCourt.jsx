@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 import axios from "axios";
@@ -8,6 +8,10 @@ import { useNavigate } from "react-router";
 import useSecureAxios from "../hooks/useSecureAxios";
 
 const AddCourt = () => {
+    useEffect(() => {
+        document.title = `Add Court | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const {
         register,
         handleSubmit,

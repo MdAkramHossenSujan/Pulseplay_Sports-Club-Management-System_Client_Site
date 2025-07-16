@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import useAuth from '../../hooks/useAuth';
@@ -25,7 +25,10 @@ const Profile = () => {
     const secureAxios = useSecureAxios();
     const queryClient = useQueryClient();
     const { user,updateUser } = useAuth();
-
+    useEffect(() => {
+        document.title = `Profile | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedImage, setSelectedImage] = useState(null);
     const [newName, setNewName] = useState('');

@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import useSecureAxios from '../../hooks/useSecureAxios';
 import dayjs from 'dayjs';
@@ -12,7 +12,10 @@ dayjs.extend(duration);
 const ManageBookingConfirmed = () => {
     const secureAxios = useSecureAxios();
     const [searchTerm, setSearchTerm] = useState("");
-
+    useEffect(() => {
+        document.title = `Manage Confirmed Bookings | Dashboard | PulsePlay`; 
+        window.scrollTo(0, 0); 
+      }, []);
     const { data: bookings = [], isLoading} = useQuery({
         queryKey: ['bookings-confirmed'],
         queryFn: async () => {
