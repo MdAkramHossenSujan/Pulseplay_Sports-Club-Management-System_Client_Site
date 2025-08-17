@@ -87,10 +87,10 @@ const Courts = () => {
       
       {/* ✅ Top Featured Cities */}
       <div className="flex flex-wrap gap-3 mb-4">
-        <span className="font-semibold mr-2">Top Cities:</span>
+        <span className="font-bold text-xl mr-2">Top Cities:</span>
         <button 
           onClick={() => setSelectedCity('')} 
-          className={`px-4 py-2 rounded-full border ${selectedCity === '' ? 'bg-green-600 text-white' : 'border-green-600 text-green-600'}`}
+          className={`px-4 py-2 cursor-pointer rounded-full border ${selectedCity === '' ? 'bg-green-600 text-white' : 'border-green-600 text-green-600'}`}
         >
           All
         </button>
@@ -98,7 +98,7 @@ const Courts = () => {
           <button 
             key={city} 
             onClick={() => setSelectedCity(city)} 
-            className={`px-4 py-2 rounded-full border ${selectedCity === city ? 'bg-green-600 text-white' : 'border-green-600 text-green-600'}`}
+            className={`px-4 py-2 cursor-pointer rounded-full border ${selectedCity === city ? 'bg-green-600 text-white' : 'border-green-600 text-green-600'}`}
           >
             {city}
           </button>
@@ -110,7 +110,7 @@ const Courts = () => {
         <span className="font-semibold mr-2">Top Sports:</span>
         <button 
           onClick={() => setSelectedSport('')} 
-          className={`px-4 py-2 rounded-full border ${selectedSport === '' ? 'bg-blue-600 text-white' : 'border-blue-600 text-blue-600'}`}
+          className={`px-4 cursor-pointer py-2 rounded-full border ${selectedSport === '' ? 'bg-blue-600 text-white' : 'border-blue-600 text-blue-600'}`}
         >
           All
         </button>
@@ -118,7 +118,7 @@ const Courts = () => {
           <button 
             key={sport} 
             onClick={() => setSelectedSport(sport)} 
-            className={`px-4 py-2 rounded-full border ${selectedSport === sport ? 'bg-blue-600 text-white' : 'border-blue-600 text-blue-600'}`}
+            className={`px-4 py-2 cursor-pointer rounded-full border ${selectedSport === sport ? 'bg-blue-600 text-white' : 'border-blue-600 text-blue-600'}`}
           >
             {sport}
           </button>
