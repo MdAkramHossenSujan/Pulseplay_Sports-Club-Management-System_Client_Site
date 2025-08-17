@@ -14,11 +14,11 @@ const AboutClub = () => {
   };
 
   return (
-    <div className='lg:max-w-[1400px] md:max-w-4xl mx-auto'>
+    <div className='lg:max-w-[1400px] md:max-w-5xl mx-auto'>
 
       {/* IMAGES SECTION */}
       <motion.div
-        className="lg:py-32 px-12 lg:px-0 py-16 flex items-center lg:justify-center md:gap-8 lg:gap-16"
+        className="lg:py-32 px-4 py-16 flex items-center lg:justify-center gap-2 md:gap-8 lg:gap-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
@@ -26,7 +26,7 @@ const AboutClub = () => {
       >
         {/* Image 1 */}
         <motion.div
-          className="lg:w-72 md:w-60 md:h-60 w-48 h-48 relative lg:h-72 rounded-full overflow-hidden shadow-lg ring-4 ring-gray-300 dark:ring-green-900"
+          className="lg:w-72 md:w-60 md:h-60 w-28 h-28 relative lg:h-72 rounded-full overflow-hidden shadow-lg ring-4 ring-gray-300 dark:ring-green-900"
           whileHover={{ scale: 1.05 }}
         >
           <img
@@ -39,7 +39,7 @@ const AboutClub = () => {
 
         {/* Image 2 */}
         <motion.div
-          className="lg:w-72 md:w-60 md:h-60 w-48 h-48 relative lg:h-72 rounded-full overflow-hidden shadow-lg ring-4 ring-gray-300 dark:ring-green-900 lg:-mt-24"
+          className="lg:w-72 md:w-60 md:h-60 w-28 h-28 relative lg:h-72 rounded-full overflow-hidden shadow-lg ring-4 ring-gray-300 dark:ring-green-900 -mt-8 md:-mt-12 lg:-mt-24"
           whileHover={{ scale: 1.05 }}
         >
           <img
@@ -52,7 +52,7 @@ const AboutClub = () => {
 
         {/* Image 3 */}
         <motion.div
-          className="lg:w-72 md:w-60 md:h-60 w-48 h-48 relative lg:h-72 rounded-full overflow-hidden shadow-lg ring-4 ring-gray-300 dark:ring-green-900"
+          className="lg:w-72 md:w-60 md:h-60 w-28 h-28 relative lg:h-72 rounded-full overflow-hidden shadow-lg ring-4 ring-gray-300 dark:ring-green-900"
           whileHover={{ scale: 1.05 }}
         >
           <img
