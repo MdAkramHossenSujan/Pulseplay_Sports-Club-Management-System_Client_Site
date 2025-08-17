@@ -18,7 +18,7 @@ const AboutClub = () => {
 
       {/* IMAGES SECTION */}
       <motion.div
-        className="lg:py-32 py-16 flex flex-col items-center lg:flex-row lg:justify-center gap-16"
+        className="lg:py-32 py-16 flex items-center lg:justify-center lg:gap-16"
         initial={{ opacity: 0, y: 50 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
