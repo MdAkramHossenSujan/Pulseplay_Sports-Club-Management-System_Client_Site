@@ -6,6 +6,8 @@ import PopularGames from '../components/PopularGames';
 import HowPulsePlayWorks from '../components/HowPulsePlayWorks';
 import WhyPulsePlay from '../components/WhyPulsePlay';
 import Coupons from '../components/Coupons';
+import Review from '../components/Review';
+import ContactUs from '../components/ContactUs';
 
 const Home = () => {
     useEffect(() => {
@@ -35,6 +37,12 @@ const Home = () => {
            </div>
            <div>
             <Coupons/>
+           </div>
+           <div>
+            <Review/>
+           </div>
+           <div>
+            <ContactUs/>
            </div>
         </div>
     );
